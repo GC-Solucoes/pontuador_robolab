@@ -6,11 +6,14 @@
         "cronometro",
         "Equipe",
         "inicio",
+        "Marcador",
         "Membros",
         "numero",
         "observacao",
         "pontuacao",
         "pontuador",
-        "robolab"
+        "Primeiro",
+        "robolab",
+        "Tentativa"
     ]
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pontuador_robolab/core/reusable/dropdown.dart';
 
-class PrimeiroMarcadorWidget extends StatelessWidget {
-  const PrimeiroMarcadorWidget({
+class SegundoMarcadorWidget extends StatelessWidget {
+  const SegundoMarcadorWidget({
     super.key,
   });
 

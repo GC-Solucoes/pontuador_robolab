@@ -8,6 +8,7 @@ class DropdownReusable extends StatefulWidget {
 }
 
 const List<String> list = <String>[
+  '0',
   '1',
   '2',
   '3',
