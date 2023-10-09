@@ -9,6 +9,7 @@ class KitResgateWidget extends StatefulWidget {
 
 class _KitResgateWidgetState extends State<KitResgateWidget> {
   String status = "Não Entregue";
+  double multiplicador = 1.0; // Inicializado como 1.0 (sem multiplicação)
   int selectedButtonIndex = -1; // Índice do botão selecionado
 
   @override
@@ -33,6 +34,13 @@ class _KitResgateWidgetState extends State<KitResgateWidget> {
                     ][index];
                     selectedButtonIndex =
                         index; // Define o índice do botão selecionado
+
+                    // Defina o multiplicador com base na seleção da área
+                    if (index == 3 || index == 4) {
+                      multiplicador = 1.3; // Na área dos vivos
+                    } else {
+                      multiplicador = 1.1; // Na área dos mortos
+                    }
                   });
                 },
                 child: Ink(
@@ -66,6 +74,11 @@ class _KitResgateWidgetState extends State<KitResgateWidget> {
         Text(
           'Status selecionado: $status',
           style: const TextStyle(fontSize: 18),
+        ),
+        Text(
+          'Multiplicador: $multiplicador',
+          style: const TextStyle(
+              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
         ),
       ],
     );
