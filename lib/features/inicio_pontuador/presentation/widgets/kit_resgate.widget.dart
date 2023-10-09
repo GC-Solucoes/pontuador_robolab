@@ -1,0 +1,73 @@
+import 'package:flutter/material.dart';
+
+class KitResgateWidget extends StatefulWidget {
+  const KitResgateWidget({Key? key}) : super(key: key);
+
+  @override
+  _KitResgateWidgetState createState() => _KitResgateWidgetState();
+}
+
+class _KitResgateWidgetState extends State<KitResgateWidget> {
+  String status = "Não Entregue";
+  int selectedButtonIndex = -1; // Índice do botão selecionado
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Wrap(
+          spacing: 8.0,
+          runSpacing: 8.0,
+          children: [
+            for (int index = 0; index < 5; index++)
+              InkWell(
+                onTap: () {
+                  setState(() {
+                    status = [
+                      "Não Entregue",
+                      "Entregue na área vermelha (robo)",
+                      "Entregue na área vermelha (trajeto)",
+                      "Entregue na área verde (robo)",
+                      "Entregue na área verde (trajeto)",
+                    ][index];
+                    selectedButtonIndex =
+                        index; // Define o índice do botão selecionado
+                  });
+                },
+                child: Ink(
+                  decoration: BoxDecoration(
+                    color: selectedButtonIndex == index
+                        ? Colors.grey
+                        : Colors.green,
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      [
+                        "Não Entregue",
+                        "Entregue na área vermelha (robo)",
+                        "Entregue na área vermelha (trajeto)",
+                        "Entregue na área verde (robo)",
+                        "Entregue na área verde (trajeto)",
+                      ][index],
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+          ],
+        ),
+        const SizedBox(height: 10),
+        Text(
+          'Status selecionado: $status',
+          style: const TextStyle(fontSize: 18),
+        ),
+      ],
+    );
+  }
+}

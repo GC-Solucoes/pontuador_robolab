@@ -5,6 +5,7 @@ import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets
 import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/gangorras.widget.dart';
 import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/gap.widget.dart';
 import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/intersecoes.widget.dart';
+import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/kit_resgate.widget.dart';
 import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/ladrilho_inicial_option.dart';
 import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/obstaculos.widget.dart';
 import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/passagem.widget.dart';
@@ -124,21 +125,21 @@ class _MyHomePageState extends State<MyHomePage> {
                       fontSize: 20)),
               const SizedBox(height: 10),
               const TerceiroMarcadorWidget(),
-              const SizedBox(height: 5),
+              const SizedBox(height: 10),
               const Text('Obstáculos',
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                       fontSize: 20)),
               const ObstaculosWidget(),
-              const SizedBox(height: 5),
+              const SizedBox(height: 10),
               const Text('Gangorras',
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                       fontSize: 20)),
               const GangorrasWidget(),
-              const SizedBox(height: 5),
+              const SizedBox(height: 10),
               const Text('Redutores',
                   style: TextStyle(
                       color: Colors.black,
@@ -199,7 +200,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                       fontSize: 20)),
-              const VitimasVermelhaWidget(),
+              const VitimasVermelhoWidget(),
               const SizedBox(height: 5),
               const Text('Vítimas Vivas ou Mortas Entregues na Área Invertida',
                   style: TextStyle(
@@ -207,6 +208,24 @@ class _MyHomePageState extends State<MyHomePage> {
                       fontWeight: FontWeight.bold,
                       fontSize: 20)),
               const VitimasInvertidaWidget(),
+              const SizedBox(height: 5),
+              const Text('Kit Resgate Entregue',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20)),
+              const KitResgateWidget(),
+              const SizedBox(height: 20),
+              const Text('Cronômetro',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20)),
+              TimerControlButtons(
+                onStart: _startTimer,
+                onPause: _pauseTimer,
+                onReset: _resetTimer,
+              ),
             ],
           ),
         ),

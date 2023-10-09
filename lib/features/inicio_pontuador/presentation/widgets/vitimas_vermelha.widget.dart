@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-class VitimasVermelhaWidget extends StatefulWidget {
-  const VitimasVermelhaWidget({Key? key}) : super(key: key);
+class VitimasVermelhoWidget extends StatefulWidget {
+  const VitimasVermelhoWidget({Key? key}) : super(key: key);
 
   @override
-  _VitimasVermelhaWidgetState createState() => _VitimasVermelhaWidgetState();
+  _VitimasVermelhoWidgetState createState() => _VitimasVermelhoWidgetState();
 }
 
-class _VitimasVermelhaWidgetState extends State<VitimasVermelhaWidget> {
-  int valor = 0;
+class _VitimasVermelhoWidgetState extends State<VitimasVermelhoWidget> {
+  int valor = -1; // Inicializado com -1 para nenhum botão estar selecionado
 
   @override
   Widget build(BuildContext context) {
@@ -16,24 +16,27 @@ class _VitimasVermelhaWidgetState extends State<VitimasVermelhaWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Wrap(
-          spacing: 8.0, // Espaçamento horizontal entre os botões
-          runSpacing: 8.0, // Espaçamento vertical entre as linhas de botões
+          spacing: 8.0,
+          runSpacing: 8.0,
           children: List.generate(6, (index) {
-            final buttonText = (index).toString(); // Números de 0 a 5
+            final buttonText = (index).toString();
             return ElevatedButton(
               onPressed: () {
                 setState(() {
                   valor = index; // Define o valor para o número clicado
                 });
               },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: valor == index ? Colors.grey : Colors.green,
+                // Define a cor do botão com base na seleção
+              ),
               child: Text(buttonText),
             );
           }),
         ),
-        const SizedBox(
-            height: 10), // Espaço entre os botões e a exibição do valor
+        const SizedBox(height: 10),
         Text(
-          'Quantidade de Vítimas: $valor',
+          'Quantidade de Vítimas: ${valor == -1 ? "Nenhuma" : valor}',
           style: const TextStyle(fontSize: 18),
         ),
       ],

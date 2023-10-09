@@ -8,7 +8,7 @@ class VitimasInvertidaWidget extends StatefulWidget {
 }
 
 class _VitimasInvertidaWidgetState extends State<VitimasInvertidaWidget> {
-  int valor = 0;
+  int valor = -1; // Inicializado com -1 para nenhum botão estar selecionado
 
   @override
   Widget build(BuildContext context) {
@@ -16,24 +16,27 @@ class _VitimasInvertidaWidgetState extends State<VitimasInvertidaWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Wrap(
-          spacing: 8.0, // Espaçamento horizontal entre os botões
-          runSpacing: 8.0, // Espaçamento vertical entre as linhas de botões
+          spacing: 8.0,
+          runSpacing: 8.0,
           children: List.generate(11, (index) {
-            final buttonText = (index).toString(); // Números de 0 a 10
+            final buttonText = (index).toString();
             return ElevatedButton(
               onPressed: () {
                 setState(() {
                   valor = index; // Define o valor para o número clicado
                 });
               },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: valor == index ? Colors.grey : Colors.green,
+                // Define a cor do botão com base na seleção
+              ),
               child: Text(buttonText),
             );
           }),
         ),
-        const SizedBox(
-            height: 10), // Espaço entre os botões e a exibição do valor
+        const SizedBox(height: 10),
         Text(
-          'Quantidade de Vítimas: $valor',
+          'Quantidade de Vítimas: ${valor == -1 ? "Nenhuma" : valor}',
           style: const TextStyle(fontSize: 18),
         ),
       ],
