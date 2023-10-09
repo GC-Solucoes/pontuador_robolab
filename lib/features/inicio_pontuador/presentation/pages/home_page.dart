@@ -1,17 +1,23 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/becos.widget.dart';
 import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/gangorras.widget.dart';
 import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/gap.widget.dart';
 import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/intersecoes.widget.dart';
 import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/ladrilho_inicial_option.dart';
 import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/obstaculos.widget.dart';
+import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/passagem.widget.dart';
 import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/primeiro_marcador.widget.dart';
+import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/rampas.widget.dart';
 import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/redutores.widget.dart';
 import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/segundo_marcador.widget.dart';
 import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/terceiro_marcador.widget.dart';
 import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/timer_controls_buttons.dart';
 import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/timer_display_widget.dart';
+import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/vitimas_invertida.widget.dart';
+import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/vitimas_verde.widget.dart';
+import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/vitimas_vermelha.widget.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -153,6 +159,54 @@ class _MyHomePageState extends State<MyHomePage> {
                       fontWeight: FontWeight.bold,
                       fontSize: 20)),
               const GapWidget(),
+              const SizedBox(height: 5),
+              const Text('Passagem',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20)),
+              const PassagemWidget(),
+              const SizedBox(height: 5),
+              const Text('Becos',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20)),
+              const BecosWidget(),
+              const SizedBox(height: 5),
+              const Text('Rampas',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20)),
+              const RampasWidget(),
+              const SizedBox(height: 3),
+              const Text('Vítimas Resgatadas',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20)),
+              const SizedBox(height: 5),
+              const Text('Vítimas Vivas Entregues na Área Verde',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20)),
+              const VitimasVerdeWidget(),
+              const SizedBox(height: 5),
+              const Text('Vítimas Mortas Entregues na Área Vermelha',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20)),
+              const VitimasVermelhaWidget(),
+              const SizedBox(height: 5),
+              const Text('Vítimas Vivas ou Mortas Entregues na Área Invertida',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20)),
+              const VitimasInvertidaWidget(),
             ],
           ),
         ),
