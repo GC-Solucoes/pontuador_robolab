@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class LadrilhoInicialOption extends StatelessWidget {
   final bool selected;
   final ValueChanged<bool> toggleSelection;
-  final int pontuacao;
+  final double pontuacao;
 
   const LadrilhoInicialOption({
     super.key,
@@ -38,10 +38,14 @@ class LadrilhoInicialOption extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 10),
         Visibility(
           visible: selected,
-          child: Text('Pontuação: $pontuacao pnts'),
+          child: Text(
+            'Pontuação: $pontuacao pontos',
+            style: const TextStyle(
+                color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
+          ),
         ),
       ],
     );

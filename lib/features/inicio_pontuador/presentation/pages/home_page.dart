@@ -1,8 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/gangorras.widget.dart';
+import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/gap.widget.dart';
+import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/intersecoes.widget.dart';
 import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/ladrilho_inicial_option.dart';
+import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/obstaculos.widget.dart';
 import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/primeiro_marcador.widget.dart';
+import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/redutores.widget.dart';
 import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/segundo_marcador.widget.dart';
 import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/terceiro_marcador.widget.dart';
 import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/timer_controls_buttons.dart';
@@ -25,7 +30,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController _teamNameController = TextEditingController();
 
   bool _ladrilhoInicialSelected = false;
-  final int _pontuacaoLadrilhoInicial = 0;
+  final double _pontuacaoLadrilhoInicial = 0;
 
   void _toggleLadrilhoInicial(bool value) {
     setState(() {
@@ -113,6 +118,41 @@ class _MyHomePageState extends State<MyHomePage> {
                       fontSize: 20)),
               const SizedBox(height: 10),
               const TerceiroMarcadorWidget(),
+              const SizedBox(height: 5),
+              const Text('Obstáculos',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20)),
+              const ObstaculosWidget(),
+              const SizedBox(height: 5),
+              const Text('Gangorras',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20)),
+              const GangorrasWidget(),
+              const SizedBox(height: 5),
+              const Text('Redutores',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20)),
+              const RedutoresWidget(),
+              const SizedBox(height: 5),
+              const Text('Iterseções',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20)),
+              const IntersecoesWidget(),
+              const SizedBox(height: 5),
+              const Text('Gap',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20)),
+              const GapWidget(),
             ],
           ),
         ),
