@@ -26,10 +26,10 @@ class _KitResgateWidgetState extends State<KitResgateWidget> {
                 onTap: () {
                   setState(() {
                     status = [
-                      "Não Entregue",
-                      "Entregue na área vermelha (robo)",
+                      "Não entregue",
+                      "Entregue na área vermelha (Robô)",
                       "Entregue na área vermelha (trajeto)",
-                      "Entregue na área verde (robo)",
+                      "Entregue na área verde (Robô)",
                       "Entregue na área verde (trajeto)",
                     ][index];
                     selectedButtonIndex =

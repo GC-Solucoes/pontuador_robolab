@@ -76,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pontuador - Robolab'),
+        title: const Text('Pontuador - RoboLab'),
       ),
       body: SingleChildScrollView(
         child: Center(

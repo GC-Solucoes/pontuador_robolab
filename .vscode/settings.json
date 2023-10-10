@@ -15,5 +15,7 @@
         "Primeiro",
         "robolab",
         "Tentativa"
-    ]
+    ],
+    "dart.flutterSdkPath": "/home/coimbrox/.puro/envs/stable/flutter",
+    "dart.sdkPath": "/home/coimbrox/.puro/envs/stable/flutter/bin/cache/dart-sdk"
 }
