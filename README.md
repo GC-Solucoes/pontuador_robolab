@@ -1,16 +1,29 @@
-# pontuador_robolab
 
-A new Flutter project.
+# Pontuador ROBOLAB - IFRS Caxias do Sul
 
-## Getting Started
+Este é um aplicativo Flutter que ajuda juízes de arena de robótica a pontuar competidores em eventos esportivos. O aplicativo é baseado em um PDF interativo que fornece instruções sobre como acessar o portal de pontuação, pontuar os competidores e salvar as pontuações.
 
-This project is a starting point for a Flutter application.
+## Tecnologias utilizadas
 
-A few resources to get you started if this is your first Flutter project:
+Este aplicativo foi criado usando Flutter, um framework de desenvolvimento de aplicativos móveis da Google.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Instruções de uso
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. Faça o download do código-fonte do aplicativo.
+2. Abra o código-fonte em um editor de código compatível com Flutter, como o Visual Studio Code.
+3. Execute o comando `flutter run` para compilar e executar o aplicativo em um dispositivo ou emulador.
+4. Para acessar o portal de pontuação, clique no botão "Carregar" na tela principal do aplicativo.
+5. Para pontuar os competidores, siga as instruções na tela de pontuação.
+6. Para salvar as pontuações e selecionar o nível da equipe, siga as instruções na tela de configurações.
+
+## Contribuição
+
+Se você quiser contribuir para este projeto, sinta-se à vontade para enviar um pull request com suas alterações. Certifique-se de seguir as diretrizes de contribuição descritas no arquivo CONTRIBUTING.md.
+
+## Licença
+
+Este projeto está licenciado sob a licença MIT. Consulte o arquivo LICENSE.md para obter mais informações.
+
+## Autor
+
+Este projeto foi criado por Gabriel Coimbra (@coimbrox). Se você tiver alguma dúvida ou sugestão, entre em contato comigo em coimbrawebs@gmail.com.
