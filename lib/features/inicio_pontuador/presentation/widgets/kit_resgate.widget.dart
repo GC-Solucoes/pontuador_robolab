@@ -28,9 +28,9 @@ class _KitResgateWidgetState extends State<KitResgateWidget> {
                     status = [
                       "Não entregue",
                       "Entregue na área vermelha (Robô)",
-                      "Entregue na área vermelha (trajeto)",
+                      "Entregue na área vermelha (Trajeto)",
                       "Entregue na área verde (Robô)",
-                      "Entregue na área verde (trajeto)",
+                      "Entregue na área verde (Trajeto)",
                     ][index];
                     selectedButtonIndex =
                         index; // Define o índice do botão selecionado

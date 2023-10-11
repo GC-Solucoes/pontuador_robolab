@@ -50,7 +50,7 @@ class _DropdownReusableState extends State<DropdownReusable> {
       case '10':
         return 10.0;
       default:
-        return 0.0; // Valor padrão
+        return 0.0;
     }
   }
 
