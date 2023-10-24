@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 
 class GangorrasWidget extends StatefulWidget {
@@ -9,6 +11,10 @@ class GangorrasWidget extends StatefulWidget {
 
 class _GangorrasWidgetState extends State<GangorrasWidget> {
   int pontos = 0;
+  int getPoints() {
+    return pontos;
+  }
+
   List<bool> buttonStates = List.generate(6, (index) => false);
 
   @override

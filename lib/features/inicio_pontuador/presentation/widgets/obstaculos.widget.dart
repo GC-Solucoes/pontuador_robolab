@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 
 class ObstaculosWidget extends StatefulWidget {
@@ -9,6 +11,7 @@ class ObstaculosWidget extends StatefulWidget {
 
 class _ObstaculosWidgetState extends State<ObstaculosWidget> {
   int pontos = 0;
+
   List<bool> buttonStates = List.generate(6, (index) => false);
 
   @override

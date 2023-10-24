@@ -1,5 +1,6 @@
-import 'dart:async';
+// ignore_for_file: unused_field, library_private_types_in_public_api, prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/becos.widget.dart';
 import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/gangorras.widget.dart';
@@ -9,6 +10,7 @@ import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets
 import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/ladrilho_inicial_option.dart';
 import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/obstaculos.widget.dart';
 import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/passagem.widget.dart';
+import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/pontuacao_final.widget.dart';
 import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/primeiro_marcador.widget.dart';
 import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/rampas.widget.dart';
 import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/redutores.widget.dart';
@@ -28,16 +30,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final Stopwatch _stopwatch = Stopwatch();
-  Timer? _timer;
-  bool _isRunning = false;
-
   final TextEditingController _evaluatorNameController =
       TextEditingController();
-  final TextEditingController _teamNameController = TextEditingController();
 
+  bool _isRunning = false;
   bool _ladrilhoInicialSelected = false;
   final double _pontuacaoLadrilhoInicial = 0;
+  final Stopwatch _stopwatch = Stopwatch();
+  final TextEditingController _teamNameController = TextEditingController();
+  Timer? _timer;
 
   void _toggleLadrilhoInicial(bool value) {
     setState(() {
@@ -147,7 +148,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       fontSize: 20)),
               const RedutoresWidget(),
               const SizedBox(height: 5),
-              const Text('Iterseções',
+              const Text('Intercessões',
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
@@ -226,6 +227,22 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPause: _pauseTimer,
                 onReset: _resetTimer,
               ),
+              const Text('FIM',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20)),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => PontuacaoFinal(
+                                pontos: [100],
+                              )),
+                    );
+                  },
+                  child: Text('Exibir pontuação final'))
             ],
           ),
         ),
@@ -235,9 +252,9 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class CampoNomeAvaliador extends StatelessWidget {
-  final TextEditingController controller;
-
   const CampoNomeAvaliador({super.key, required this.controller});
+
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -255,9 +272,9 @@ class CampoNomeAvaliador extends StatelessWidget {
 }
 
 class CampoNomeEquipe extends StatelessWidget {
-  final TextEditingController controller;
-
   const CampoNomeEquipe({super.key, required this.controller});
+
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
