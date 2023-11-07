@@ -1,5 +1,3 @@
-// ignore_for_file: library_private_types_in_public_api
-
 import 'package:flutter/material.dart';
 
 class ObstaculosWidget extends StatefulWidget {
@@ -14,52 +12,85 @@ class _ObstaculosWidgetState extends State<ObstaculosWidget> {
 
   List<bool> buttonStates = List.generate(6, (index) => false);
 
+  void atualizarPontos() {
+    int novoPonto = 0;
+
+    for (int i = 0; i < buttonStates.length; i++) {
+      if (buttonStates[i]) {
+        novoPonto += 1;
+      }
+    }
+    setState(() {
+      pontos = novoPonto * 15;
+    });
+    // ShareAtom.setPontos(pontos);
+  }
+
+  void atualizarEstado(int index) {
+    setState(() {
+      buttonStates[index] = !buttonStates[index];
+    });
+    atualizarPontos();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Wrap(
-          spacing: 8.0,
-          runSpacing: 8.0,
-          children: List.generate(6, (index) {
-            final buttonText = (index + 1).toString();
-            return InkWell(
-              onTap: () {
-                setState(() {
-                  buttonStates[index] = !buttonStates[index];
-                  if (buttonStates[index]) {
-                    pontos += 15;
-                  } else {
-                    pontos -= 15;
-                  }
-                });
-              },
-              child: Ink(
-                decoration: BoxDecoration(
-                  color: buttonStates[index] ? Colors.grey : Colors.green,
-                  borderRadius: BorderRadius.circular(8.0),
+    final size = MediaQuery.of(context).size;
+    final buttonSize = size.width / 8;
+
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Wrap(
+            direction: Axis.horizontal,
+            alignment: WrapAlignment.center,
+            spacing: buttonSize / 4,
+            runSpacing: buttonSize / 4,
+            children: [
+              for (int i = 0; i < 6; i++)
+                InkWell(
+                  onTap: () {
+                    atualizarEstado(i);
+                  },
+                  child: buildButton(i, buttonSize),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    buttonText,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                    ),
-                  ),
-                ),
-              ),
-            );
-          }),
+            ],
+          ),
+          const SizedBox(height: 15),
+          Text(
+            'Pontos: $pontos',
+            style: const TextStyle(fontSize: 18, color: Colors.white),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget buildButton(int index, double buttonSize) {
+    final buttonText = (index + 1).toString();
+    return Container(
+      width: buttonSize,
+      height: buttonSize,
+      decoration: BoxDecoration(
+        color: buttonStates[index] ? Colors.green : Colors.green,
+        borderRadius: BorderRadius.circular(15.0),
+        border: Border.all(
+          color: Colors.green,
+          width: buttonSize / 6,
         ),
-        const SizedBox(height: 10),
-        Text(
-          'Pontos: $pontos',
-          style: const TextStyle(fontSize: 18),
+      ),
+      child: Center(
+        child: Text(
+          buttonText,
+          style: TextStyle(
+            color: buttonStates[index] ? Colors.white : Colors.black,
+            fontSize: buttonSize / 3,
+            fontWeight: FontWeight.bold,
+          ),
         ),
-      ],
+      ),
     );
   }
 }

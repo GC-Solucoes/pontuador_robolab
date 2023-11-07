@@ -72,10 +72,16 @@ class _DropdownReusableState extends State<DropdownReusable> {
               child: Text(value),
             );
           }).toList(),
+          icon: const Icon(
+            Icons.arrow_drop_down, color: Colors.white 
+          ),
+          style: const TextStyle(
+            color: Colors.white
+          )
         ),
         Text(
           'Pontos: $pontuacaoSelecionada',
-          style: const TextStyle(fontSize: 18),
+          style: const TextStyle(fontSize: 18, color: Colors.white),
         ),
       ],
     );

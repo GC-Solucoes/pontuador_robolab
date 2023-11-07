@@ -19,7 +19,12 @@ class LadrilhoInicialOption extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text('Ladrilho Inicial:'),
+            const Text(
+              'Ladrilho Inicial: ',
+              style: TextStyle(
+                color: Colors.white
+              ),
+            ),
             const SizedBox(width: 10),
             ElevatedButton(
               onPressed: () => toggleSelection(true),
@@ -44,7 +49,7 @@ class LadrilhoInicialOption extends StatelessWidget {
           child: Text(
             'Pontuação: $pontuacao pontos',
             style: const TextStyle(
-                color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
+                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
           ),
         ),
       ],

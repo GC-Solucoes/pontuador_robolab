@@ -1,23 +1,17 @@
 // ignore_for_file: prefer_const_constructors, deprecated_member_use, use_key_in_widget_constructors, prefer_const_constructors_in_immutables
 
 import 'package:flutter/material.dart';
+import 'package:pontuador_robolab/core/atom/shared_atom.dart';
+import 'package:pontuador_robolab/features/inicio_pontuador/presentation/pages/home_page.dart';
 
 class PontuacaoFinal extends StatelessWidget {
   PontuacaoFinal({required this.pontos});
 
   final List<int> pontos;
 
-  int calcularPontuacaoTotal() {
-    int total = 0;
-    for (int ponto in pontos) {
-      total += ponto;
-    }
-    return total;
-  }
-
   @override
   Widget build(BuildContext context) {
-    int pontuacaoTotal = calcularPontuacaoTotal();
+    List<int> pontuacaoTotal = ShareAtom.getListaPontos();
 
     return Scaffold(
       appBar: AppBar(

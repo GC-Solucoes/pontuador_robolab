@@ -14,7 +14,12 @@ class SegundoMarcadorWidget extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text('1ª Tentativa: '),
+              Text(
+                '1ª Tentativa:',
+                style: TextStyle(
+                  color: Colors.white
+                )
+              ),
               DropdownReusable(),
             ],
           ),
@@ -24,7 +29,12 @@ class SegundoMarcadorWidget extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text('2ª Tentativa: '),
+              Text(
+                '2ª Tentativa:',
+                style: TextStyle(
+                  color: Colors.white
+                )
+              ),
               DropdownReusable(),
             ],
           ),
@@ -34,7 +44,12 @@ class SegundoMarcadorWidget extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text('3ª Tentativa: '),
+              Text(
+                '3ª Tentativa:',
+                style: TextStyle(
+                  color: Colors.white
+                )
+              ),
               DropdownReusable(),
             ],
           ),
