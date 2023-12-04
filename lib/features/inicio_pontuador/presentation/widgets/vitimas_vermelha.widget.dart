@@ -1,6 +1,5 @@
-// ignore_for_file: library_private_types_in_public_api
-
 import 'package:flutter/material.dart';
+import 'package:pontuador_robolab/core/atom/shared_atom.dart';
 
 class VitimasVermelhoWidget extends StatefulWidget {
   const VitimasVermelhoWidget({Key? key}) : super(key: key);
@@ -10,7 +9,7 @@ class VitimasVermelhoWidget extends StatefulWidget {
 }
 
 class _VitimasVermelhoWidgetState extends State<VitimasVermelhoWidget> {
-  int valor = -1; // Inicializado com -1 para nenhum botão estar selecionado
+  int quantidadeVitimas = -1; // Inicializado com -1 para nenhum botão estar selecionado
 
   @override
   Widget build(BuildContext context) {
@@ -27,24 +26,34 @@ class _VitimasVermelhoWidgetState extends State<VitimasVermelhoWidget> {
               return ElevatedButton(
                 onPressed: () {
                   setState(() {
-                    valor = index; // Define o valor para o número clicado
+                    quantidadeVitimas = index; // Define a quantidade de vítimas para o número clicado
+                    SharedAtom.pontos11 = calcularPontos(); // Adiciona os pontos em SharedAtom.pontos11
                   });
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: valor == index ? Colors.grey : Colors.green,
-                  // Define a cor do botão com base na seleção
+                  backgroundColor: quantidadeVitimas == index ? Colors.green : Colors.green,
                 ),
-                child: Text(buttonText),
+                child: Text(
+                  buttonText,
+                  style: TextStyle(
+                    color: quantidadeVitimas == index ? Colors.white : Colors.black,
+                  ),
+                ),
               );
             }),
           ),
           const SizedBox(height: 10),
           Text(
-            'Quantidade de Vítimas: ${valor == -1 ? "Nenhuma" : valor}',
+            'Quantidade de Vítimas: ${quantidadeVitimas == -1 ? "Nenhuma" : quantidadeVitimas}',
             style: const TextStyle(fontSize: 18, color: Colors.white),
           ),
         ],
       ),
     );
+  }
+
+  double calcularPontos() {
+    // Multiplica a quantidade de vítimas por 1.3 e arredonda para o inteiro mais próximo
+    return (quantidadeVitimas * 1.3);
   }
 }

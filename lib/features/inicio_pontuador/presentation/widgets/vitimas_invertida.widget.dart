@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'package:pontuador_robolab/core/atom/shared_atom.dart';
 
 class VitimasInvertidaWidget extends StatefulWidget {
   const VitimasInvertidaWidget({Key? key}) : super(key: key);
@@ -28,13 +29,19 @@ class _VitimasInvertidaWidgetState extends State<VitimasInvertidaWidget> {
                 onPressed: () {
                   setState(() {
                     valor = index; // Define o valor para o número clicado
+                    SharedAtom.pontos12 = calcularPontos();
                   });
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: valor == index ? Colors.grey : Colors.green,
+                  backgroundColor: valor == index ? Colors.green : Colors.green,
                   // Define a cor do botão com base na seleção
                 ),
-                child: Text(buttonText),
+                child: Text(
+                  buttonText,
+                  style: TextStyle(
+                    color: valor == index ? Colors.white : Colors.black,
+                  ),
+                ),
               );
             }),
           ),
@@ -47,4 +54,9 @@ class _VitimasInvertidaWidgetState extends State<VitimasInvertidaWidget> {
       ),
     );
   }
+
+  double calcularPontos() {
+    return valor * 1.1;
+  }
+
 }

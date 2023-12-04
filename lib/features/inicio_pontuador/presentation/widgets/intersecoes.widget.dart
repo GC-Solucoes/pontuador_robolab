@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pontuador_robolab/core/atom/shared_atom.dart';
 
 class IntersecoesWidget extends StatefulWidget {
   const IntersecoesWidget({Key? key}) : super(key: key);
@@ -8,13 +9,12 @@ class IntersecoesWidget extends StatefulWidget {
 }
 
 class _IntersecoesWidgetState extends State<IntersecoesWidget> {
-  int pontos = 0;
   List<bool> buttonStates = List.generate(16, (index) => false);
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final buttonSize = size.width / 10;
+    final buttonSize = size.width / 8;
 
     return Center(
       child: Column(
@@ -30,11 +30,7 @@ class _IntersecoesWidgetState extends State<IntersecoesWidget> {
                 onTap: () {
                   setState(() {
                     buttonStates[index] = !buttonStates[index];
-                    if (buttonStates[index]) {
-                      pontos += 10;
-                    } else {
-                      pontos -= 10;
-                    }
+                    updatePoints(index);
                   });
                 },
                 child: Container(
@@ -60,11 +56,21 @@ class _IntersecoesWidgetState extends State<IntersecoesWidget> {
           ),
           const SizedBox(height: 10),
           Text(
-            'Pontos: $pontos',
+            'Pontos: ${SharedAtom.pontos5}',
             style: const TextStyle(fontSize: 18, color: Colors.white),
           ),
         ],
       ),
     );
+  }
+
+  void updatePoints(int index) {
+    if (index < 16) {
+      if (buttonStates[index]) {
+        SharedAtom.pontos5 += 10;
+      } else {
+        SharedAtom.pontos5 -= 10;
+      }
+    }
   }
 }

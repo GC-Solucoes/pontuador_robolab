@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pontuador_robolab/core/atom/shared_atom.dart';
 
 class DropdownReusable extends StatefulWidget {
   const DropdownReusable({Key? key}) : super(key: key);
@@ -23,34 +24,35 @@ const List<String> list = <String>[
 
 class _DropdownReusableState extends State<DropdownReusable> {
   String dropdownValue = list.first;
-  double pontuacaoSelecionada = 0.0;
+  int pontuacaoSelecionada = 0;
+  int pontuacaoAnterior = 0;
 
-  double mapearValorParaPontuacao(String valorSelecionado) {
+  int mapearValorParaPontuacao(String valorSelecionado) {
     switch (valorSelecionado) {
       case '0':
-        return 0.0;
+        return 0;
       case '1':
-        return 1.0;
+        return 1;
       case '2':
-        return 2.0;
+        return 2;
       case '3':
-        return 3.0;
+        return 3;
       case '4':
-        return 4.0;
+        return 4;
       case '5':
-        return 5.0;
+        return 5;
       case '6':
-        return 6.0;
+        return 6;
       case '7':
-        return 7.0;
+        return 7;
       case '8':
-        return 8.0;
+        return 8;
       case '9':
-        return 9.0;
+        return 9;
       case '10':
-        return 10.0;
+        return 10;
       default:
-        return 0.0;
+        return 0;
     }
   }
 
@@ -62,8 +64,13 @@ class _DropdownReusableState extends State<DropdownReusable> {
           value: dropdownValue,
           onChanged: (String? value) {
             setState(() {
+              pontuacaoAnterior = mapearValorParaPontuacao(dropdownValue);
               dropdownValue = value!;
               pontuacaoSelecionada = mapearValorParaPontuacao(value);
+              SharedAtom.pontos1 = SharedAtom.pontos1 - pontuacaoAnterior + pontuacaoSelecionada;
+              if (pontuacaoSelecionada == 0) {
+                SharedAtom.pontos1 = 0;
+              }
             });
           },
           items: list.map<DropdownMenuItem<String>>((String value) {
@@ -76,7 +83,7 @@ class _DropdownReusableState extends State<DropdownReusable> {
             Icons.arrow_drop_down, color: Colors.white 
           ),
           style: const TextStyle(
-            color: Colors.white
+            color: Colors.black
           )
         ),
         Text(

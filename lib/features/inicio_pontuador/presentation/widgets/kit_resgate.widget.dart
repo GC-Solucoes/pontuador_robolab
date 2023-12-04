@@ -1,6 +1,5 @@
-// ignore_for_file: library_private_types_in_public_api
-
 import 'package:flutter/material.dart';
+import 'package:pontuador_robolab/core/atom/shared_atom.dart';
 
 class KitResgateWidget extends StatefulWidget {
   const KitResgateWidget({Key? key}) : super(key: key);
@@ -41,32 +40,39 @@ class _KitResgateWidgetState extends State<KitResgateWidget> {
 
                       // Defina o multiplicador com base na seleção da área
                       if (index == 3 || index == 4) {
-                        multiplicador = 1.3; // Na área dos vivos
+                        multiplicador = 1.3;
+                        SharedAtom.pontos13 = multiplicador; // Na área dos vivos
                       } else {
-                        multiplicador = 1.1; // Na área dos mortos
+                        multiplicador = 1.1;
+                        SharedAtom.pontos13 = multiplicador;// Na área dos mortos
                       }
                     });
                   },
-                  child: Ink(
+                  child: Container(
                     decoration: BoxDecoration(
                       color: selectedButtonIndex == index
-                          ? Colors.grey
+                          ? Colors.green
                           : Colors.green,
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        [
-                          "Não Entregue",
-                          "Entregue na área vermelha (robo)",
-                          "Entregue na área vermelha (trajeto)",
-                          "Entregue na área verde (robo)",
-                          "Entregue na área verde (trajeto)",
-                        ][index],
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
+                      child: Center(
+                        child: Text(
+                          [
+                            "Não Entregue",
+                            "Entregue na área vermelha (robo)",
+                            "Entregue na área vermelha (trajeto)",
+                            "Entregue na área verde (robo)",
+                            "Entregue na área verde (trajeto)",
+                          ][index],
+                          style: TextStyle(
+                            color: selectedButtonIndex == index
+                                ? Colors.white
+                                : Colors.black,
+                            fontSize: 18,
+                          ),
+                          textAlign: TextAlign.center,
                         ),
                       ),
                     ),
@@ -79,11 +85,15 @@ class _KitResgateWidgetState extends State<KitResgateWidget> {
             'Status selecionado: $status',
             style: const TextStyle(fontSize: 18, color: Colors.white),
           ),
-          const SizedBox(height: 20,),
+          const SizedBox(
+            height: 20,
+          ),
           Text(
             'Multiplicador: $multiplicador',
             style: const TextStyle(
-                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 20),
           ),
         ],
       ),

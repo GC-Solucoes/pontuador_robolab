@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:pontuador_robolab/core/atom/shared_atom.dart';
 
 class LadrilhoInicialOption extends StatelessWidget {
   final bool selected;
   final ValueChanged<bool> toggleSelection;
-  final double pontuacao;
 
   const LadrilhoInicialOption({
-    super.key,
+    Key? key,
     required this.selected,
     required this.toggleSelection,
-    required this.pontuacao,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +20,16 @@ class LadrilhoInicialOption extends StatelessWidget {
           children: <Widget>[
             const Text(
               'Ladrilho Inicial: ',
-              style: TextStyle(
-                color: Colors.white
-              ),
+              style: TextStyle(color: Colors.white),
             ),
             const SizedBox(width: 10),
             ElevatedButton(
-              onPressed: () => toggleSelection(true),
+              onPressed: () {
+                toggleSelection(true);
+                if (!selected) {
+                  SharedAtom.pontos += 5;
+                }
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: selected ? Colors.green : null,
               ),
@@ -35,7 +37,15 @@ class LadrilhoInicialOption extends StatelessWidget {
             ),
             const SizedBox(width: 10),
             ElevatedButton(
-              onPressed: () => toggleSelection(false),
+              onPressed: () {
+                toggleSelection(false);
+                if (SharedAtom.pontos == 5) {
+                  SharedAtom.pontos -= 5;
+                }
+                if (SharedAtom.pontos > 5) {
+                  SharedAtom.pontos -= SharedAtom.pontos;
+                }
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: !selected ? Colors.red : null,
               ),
@@ -47,12 +57,19 @@ class LadrilhoInicialOption extends StatelessWidget {
         Visibility(
           visible: selected,
           child: Text(
-            'Pontuação: $pontuacao pontos',
+            'Pontuação: ${getPoints()} pontos',
             style: const TextStyle(
-                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
           ),
         ),
       ],
     );
+  }
+
+  int getPoints() {
+    return selected ? 5 : 0;
   }
 }

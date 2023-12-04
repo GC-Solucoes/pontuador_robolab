@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pontuador_robolab/core/atom/shared_atom.dart';
 
 class GangorrasWidget extends StatefulWidget {
   const GangorrasWidget({Key? key}) : super(key: key);
@@ -8,12 +9,34 @@ class GangorrasWidget extends StatefulWidget {
 }
 
 class _GangorrasWidgetState extends State<GangorrasWidget> {
-  int pontos = 0;
-  int getPoints() {
-    return pontos;
+  List<bool> buttonStates = List.generate(6, (index) => false);
+
+  void atualizarPontos() {
+    int novoPonto = 0;
+    for (int i = 0; i < buttonStates.length; i++) {
+      if (buttonStates[i]) {
+        novoPonto += 15;
+      }
+    }
+    SharedAtom.pontos3 = novoPonto;
   }
 
-  List<bool> buttonStates = List.generate(6, (index) => false);
+  void atualizarEstado(int index) {
+    setState(() {
+      buttonStates[index] = !buttonStates[index];
+    });
+    atualizarPontos();
+  }
+
+  int getPoints() {
+    int pontos = 0;
+    for (int i = 0; i < buttonStates.length; i++) {
+      if (buttonStates[i]) {
+        pontos += 15;
+      }
+    }
+    return pontos;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,11 +57,7 @@ class _GangorrasWidgetState extends State<GangorrasWidget> {
                     onTap: () {
                       setState(() {
                         buttonStates[index] = !buttonStates[index];
-                        if (buttonStates[index]) {
-                          pontos += 15;
-                        } else {
-                          pontos -= 15;
-                        }
+                        atualizarPontos();
                       });
                     },
                     child: Container(
@@ -70,7 +89,7 @@ class _GangorrasWidgetState extends State<GangorrasWidget> {
           ),
           const SizedBox(height: 10),
           Text(
-            'Pontos: $pontos',
+            'Pontos: ${getPoints()}',
             style: const TextStyle(fontSize: 18, color: Colors.white),
           ),
         ],

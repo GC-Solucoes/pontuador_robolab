@@ -1,6 +1,5 @@
-// ignore_for_file: library_private_types_in_public_api
-
 import 'package:flutter/material.dart';
+import 'package:pontuador_robolab/core/atom/shared_atom.dart';
 
 class PassagemWidget extends StatefulWidget {
   const PassagemWidget({Key? key}) : super(key: key);
@@ -10,8 +9,8 @@ class PassagemWidget extends StatefulWidget {
 }
 
 class _PassagemWidgetState extends State<PassagemWidget> {
-  int pontos = 0;
   List<Color> buttonColors = [Colors.green, Colors.green, Colors.green];
+  List<bool> buttonSelected = [false, false, false];
 
   @override
   Widget build(BuildContext context) {
@@ -29,25 +28,30 @@ class _PassagemWidgetState extends State<PassagemWidget> {
               return ElevatedButton(
                 onPressed: () {
                   setState(() {
-                    if (buttonColors[index] == Colors.green) {
-                      buttonColors[index] = Colors.grey;
-                      pontos += 10; // Adiciona 10 pontos ao clicar
+                    if (!buttonSelected[index]) {
+                      buttonSelected[index] = true;
+                      SharedAtom.pontos7 += 10; // Adiciona 10 pontos ao clicar
                     } else {
-                      buttonColors[index] = Colors.green;
-                      pontos -= 10; // Remove 10 pontos ao clicar novamente
+                      buttonSelected[index] = false;
+                      SharedAtom.pontos7 -= 10; // Remove 10 pontos ao clicar novamente
                     }
                   });
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: buttonColors[index], // Define a cor do botão
+                  backgroundColor: buttonSelected[index] ? Colors.green : Colors.green, // Define a cor do botão
                 ),
-                child: Text(buttonText),
+                child: Text(
+                  buttonText,
+                  style: TextStyle(
+                    color: buttonSelected[index] ? Colors.white : Colors.black,
+                  ),
+                ),
               );
             }),
           ),
           const SizedBox(height: 10),
           Text(
-            'Pontos: $pontos',
+            'Pontos: ${SharedAtom.pontos7}',
             style: const TextStyle(fontSize: 18, color: Colors.white),
           ),
         ],

@@ -1,19 +1,35 @@
-import 'package:share/share.dart';
-import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/obstaculos.widget.dart';
 
-class ShareAtom {
+class SharedAtom{
   static int pontos = 0;
-  static List<int> listaPontos = [];
+  static int pontos1 = 0;
+  static int pontos2 = 0;
+  static int pontos3 = 0;
+  static int pontos4 = 0;
+  static int pontos5 = 0;
+  static int pontos6 = 0;
+  static int pontos7 = 0;
+  static int pontos8 = 0;
+  static int pontos9 = 0;
+  static double pontos10 = 0.0;
+  static double pontos11 = 0.0;
+  static double pontos12 = 0.0;
+  static double pontos13 = 1.0;
 
-  static void setPontos(int novosPontos) {
-    pontos = novosPontos;
-  }
-
-  static int getPontos() {
-    return pontos;
-  }
-
-  static List<int> getListaPontos() {
-    return listaPontos;
+  static void resetPontuacao() {
+    pontos = 0;
+    pontos1 = 0;
+    pontos2 = 0;
+    pontos3 = 0;
+    pontos4 = 0;
+    pontos5 = 0;
+    pontos6 = 0;
+    pontos7 = 0;
+    pontos8 = 0;
+    pontos9 = 0;
+    pontos10 = 0.0;
+    pontos11 = 0.0;
+    pontos12 = 0.0;
+    pontos13 = 1.0;
+    
   }
 }

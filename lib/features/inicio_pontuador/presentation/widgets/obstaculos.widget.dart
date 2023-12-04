@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pontuador_robolab/core/atom/shared_atom.dart';
 
 class ObstaculosWidget extends StatefulWidget {
   const ObstaculosWidget({Key? key}) : super(key: key);
@@ -8,27 +9,38 @@ class ObstaculosWidget extends StatefulWidget {
 }
 
 class _ObstaculosWidgetState extends State<ObstaculosWidget> {
-  int pontos = 0;
-
   List<bool> buttonStates = List.generate(6, (index) => false);
 
   void atualizarPontos() {
     int novoPonto = 0;
-
     for (int i = 0; i < buttonStates.length; i++) {
       if (buttonStates[i]) {
         novoPonto += 1;
       }
     }
-    setState(() {
-      pontos = novoPonto * 15;
-    });
-    // ShareAtom.setPontos(pontos);
+    SharedAtom.pontos2 = novoPonto * 15;
   }
 
   void atualizarEstado(int index) {
     setState(() {
       buttonStates[index] = !buttonStates[index];
+    });
+    atualizarPontos();
+  }
+
+  int getPoints() {
+    int pontos = 0;
+    for (int i = 0; i < buttonStates.length; i++) {
+      if (buttonStates[i]) {
+        pontos += 1;
+      }
+    }
+    return pontos * 15;
+  }
+
+  void resetState() {
+    setState(() {
+      buttonStates = List.generate(6, (index) => false);
     });
     atualizarPontos();
   }
@@ -60,7 +72,7 @@ class _ObstaculosWidgetState extends State<ObstaculosWidget> {
           ),
           const SizedBox(height: 15),
           Text(
-            'Pontos: $pontos',
+            'Pontos: ${getPoints()}',
             style: const TextStyle(fontSize: 18, color: Colors.white),
           )
         ],
