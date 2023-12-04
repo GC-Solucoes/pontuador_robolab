@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'dart:io';
 import 'package:pontuador_robolab/core/atom/shared_atom.dart';
-import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/obstaculos.widget.dart';
 
 class PontuacaoFinal extends StatelessWidget with RouteAware {
   const PontuacaoFinal({super.key});

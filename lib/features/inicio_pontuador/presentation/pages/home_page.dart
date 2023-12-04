@@ -1,6 +1,7 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:pontuador_robolab/core/atom/shared_atom.dart';
 import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/becos.widget.dart';
 import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/gangorras.widget.dart';
 import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/gap.widget.dart';
@@ -25,17 +26,16 @@ class MyHomePage extends StatefulWidget with RouteAware {
   const MyHomePage({Key? key}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MyHomePageState createState() {
+    return _MyHomePageState();
+  }
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final TextEditingController _evaluatorNameController = TextEditingController();
 
   bool _isRunning = false;
   bool _ladrilhoInicialSelected = false;
-  final double _pontuacaoLadrilhoInicial = 0;
   final Stopwatch _stopwatch = Stopwatch();
-  final TextEditingController _teamNameController = TextEditingController();
   Timer? _timer;
 
   void _toggleLadrilhoInicial(bool value) {
