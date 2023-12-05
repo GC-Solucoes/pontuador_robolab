@@ -17,7 +17,7 @@ class PontuacaoFinal extends StatelessWidget with RouteAware {
         SharedAtom.pontos8 +
         SharedAtom.pontos9;
 
-    double resultado = ((((pontosSoma * SharedAtom.pontos13) * SharedAtom.pontos10) * SharedAtom.pontos11) * SharedAtom.pontos12);
+    num resultado = ((((pontosSoma * SharedAtom.pontos13) * SharedAtom.pontos10) * SharedAtom.pontos11) * SharedAtom.pontos12);
     String result = resultado.toStringAsFixed(2);
     double result2 = double.parse(result);
 

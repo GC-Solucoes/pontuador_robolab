@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'dart:math';
 import 'package:pontuador_robolab/core/atom/shared_atom.dart';
 
 class VitimasVerdeWidget extends StatefulWidget {
@@ -12,7 +13,7 @@ class VitimasVerdeWidget extends StatefulWidget {
 
 class _VitimasVerdeWidgetState extends State<VitimasVerdeWidget> {
   int quantidadeVitimas = -1; // Inicializado com -1 para nenhum botão estar selecionado
-  double point = 0.0;
+  num point = 0.0;
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -64,8 +65,8 @@ class _VitimasVerdeWidgetState extends State<VitimasVerdeWidget> {
     );
   }
 
-  double calcularPontos() {
-    double z = quantidadeVitimas * 1.3;
+  num calcularPontos() {
+    num z = pow(1.3, quantidadeVitimas);
     // Multiplica a quantidade de vítimas por 1.3 e retorna um double
     return z;
   }

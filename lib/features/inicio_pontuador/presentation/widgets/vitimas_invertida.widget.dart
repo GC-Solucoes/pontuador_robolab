@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'dart:math';
 import 'package:pontuador_robolab/core/atom/shared_atom.dart';
 
 class VitimasInvertidaWidget extends StatefulWidget {
@@ -12,7 +13,7 @@ class VitimasInvertidaWidget extends StatefulWidget {
 
 class _VitimasInvertidaWidgetState extends State<VitimasInvertidaWidget> {
   int valor = -1;  // Inicializado com -1 para nenhum botão estar selecionado
-  double point = 0.0;
+  num point = 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -65,8 +66,8 @@ class _VitimasInvertidaWidgetState extends State<VitimasInvertidaWidget> {
     );
   }
 
-  double calcularPontos() {
-    double z = valor * 1.1;
+  num calcularPontos() {
+    num z = pow(1.1, valor);
     return z;
   }
 
