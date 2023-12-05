@@ -11,7 +11,8 @@ class VitimasInvertidaWidget extends StatefulWidget {
 }
 
 class _VitimasInvertidaWidgetState extends State<VitimasInvertidaWidget> {
-  int valor = -1; // Inicializado com -1 para nenhum botão estar selecionado
+  int valor = -1;  // Inicializado com -1 para nenhum botão estar selecionado
+  double point = 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,16 @@ class _VitimasInvertidaWidgetState extends State<VitimasInvertidaWidget> {
                 onPressed: () {
                   setState(() {
                     valor = index; // Define o valor para o número clicado
-                    SharedAtom.pontos12 = calcularPontos();
+                    
+                    point = calcularPontos();
+
+                    if (point == 0) {
+                        SharedAtom.pontos12 = 1.0;
+                    }
+                    else {
+                        SharedAtom.pontos12 = calcularPontos();
+                    }
+
                   });
                 },
                 style: ElevatedButton.styleFrom(
@@ -56,7 +66,8 @@ class _VitimasInvertidaWidgetState extends State<VitimasInvertidaWidget> {
   }
 
   double calcularPontos() {
-    return valor * 1.1;
+    double z = valor * 1.1;
+    return z;
   }
 
 }

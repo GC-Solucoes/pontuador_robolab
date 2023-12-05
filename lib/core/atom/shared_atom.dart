@@ -10,9 +10,9 @@ class SharedAtom{
   static int pontos7 = 0;
   static int pontos8 = 0;
   static int pontos9 = 0;
-  static double pontos10 = 0.0;
-  static double pontos11 = 0.0;
-  static double pontos12 = 0.0;
+  static double pontos10 = 1.0;
+  static double pontos11 = 1.0;
+  static double pontos12 = 1.0;
   static double pontos13 = 1.0;
 
   static void resetPontuacao() {
@@ -26,9 +26,9 @@ class SharedAtom{
     pontos7 = 0;
     pontos8 = 0;
     pontos9 = 0;
-    pontos10 = 0.0;
-    pontos11 = 0.0;
-    pontos12 = 0.0;
+    pontos10 = 1.0;
+    pontos11 = 1.0;
+    pontos12 = 1.0;
     pontos13 = 1.0;
     
   }

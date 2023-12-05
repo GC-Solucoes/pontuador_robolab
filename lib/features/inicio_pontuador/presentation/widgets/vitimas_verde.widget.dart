@@ -12,7 +12,7 @@ class VitimasVerdeWidget extends StatefulWidget {
 
 class _VitimasVerdeWidgetState extends State<VitimasVerdeWidget> {
   int quantidadeVitimas = -1; // Inicializado com -1 para nenhum botão estar selecionado
-
+  double point = 0.0;
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -28,8 +28,18 @@ class _VitimasVerdeWidgetState extends State<VitimasVerdeWidget> {
               return ElevatedButton(
                 onPressed: () {
                   setState(() {
-                    quantidadeVitimas = index; // Define a quantidade de vítimas para o número clicado
-                    SharedAtom.pontos10 = calcularPontos(); // Adiciona os pontos em SharedAtom.pontos10
+                    quantidadeVitimas = index;
+
+                    point = calcularPontos();
+
+                    if (point == 0) {
+                      SharedAtom.pontos10 = 1.0;
+                    }
+                    else {
+                      SharedAtom.pontos10 = calcularPontos();
+                    }
+                    
+                     // Adiciona os pontos em SharedAtom.pontos10
                   });
                 },
                 style: ElevatedButton.styleFrom(
@@ -55,7 +65,8 @@ class _VitimasVerdeWidgetState extends State<VitimasVerdeWidget> {
   }
 
   double calcularPontos() {
+    double z = quantidadeVitimas * 1.3;
     // Multiplica a quantidade de vítimas por 1.3 e retorna um double
-    return quantidadeVitimas * 1.3;
+    return z;
   }
 }

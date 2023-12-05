@@ -6,7 +6,7 @@ class PontuacaoFinal extends StatelessWidget with RouteAware {
 
   @override
   Widget build(BuildContext context) {
-    int pontosFinais = SharedAtom.pontos +
+    int pontosSoma = SharedAtom.pontos +
         SharedAtom.pontos1 +
         SharedAtom.pontos2 +
         SharedAtom.pontos3 +
@@ -17,11 +17,9 @@ class PontuacaoFinal extends StatelessWidget with RouteAware {
         SharedAtom.pontos8 +
         SharedAtom.pontos9;
 
-    double pontosFinaisd =
-        SharedAtom.pontos10 + SharedAtom.pontos11 + SharedAtom.pontos12;
-
-    double resultado =
-        (pontosFinais + pontosFinaisd) * SharedAtom.pontos13;
+    double resultado = ((((pontosSoma * SharedAtom.pontos13) * SharedAtom.pontos10) * SharedAtom.pontos11) * SharedAtom.pontos12);
+    String result = resultado.toStringAsFixed(2);
+    double result2 = double.parse(result);
 
     return Scaffold(
       appBar: AppBar(
@@ -38,7 +36,7 @@ class PontuacaoFinal extends StatelessWidget with RouteAware {
             ),
             const SizedBox(height: 20),
             Text(
-              '$resultado',
+              '$result2',
               style: const TextStyle(
                 fontSize: 30,
                 fontWeight: FontWeight.bold,
