@@ -1,4 +1,7 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
+import 'package:pontuador_robolab/core/atom/shared_atom.dart';
 
 class VitimasInvertidaWidget extends StatefulWidget {
   const VitimasInvertidaWidget({Key? key}) : super(key: key);
@@ -12,34 +15,48 @@ class _VitimasInvertidaWidgetState extends State<VitimasInvertidaWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Wrap(
-          spacing: 8.0,
-          runSpacing: 8.0,
-          children: List.generate(11, (index) {
-            final buttonText = (index).toString();
-            return ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  valor = index; // Define o valor para o número clicado
-                });
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: valor == index ? Colors.grey : Colors.green,
-                // Define a cor do botão com base na seleção
-              ),
-              child: Text(buttonText),
-            );
-          }),
-        ),
-        const SizedBox(height: 10),
-        Text(
-          'Quantidade de Vítimas: ${valor == -1 ? "Nenhuma" : valor}',
-          style: const TextStyle(fontSize: 18),
-        ),
-      ],
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Wrap(
+            spacing: 8.0,
+            runSpacing: 8.0,
+            children: List.generate(11, (index) {
+              final buttonText = (index).toString();
+              return ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    valor = index; // Define o valor para o número clicado
+                    SharedAtom.pontos12 = calcularPontos();
+                  });
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: valor == index ? Colors.green : Colors.green,
+                  // Define a cor do botão com base na seleção
+                ),
+                child: Text(
+                  buttonText,
+                  style: TextStyle(
+                    color: valor == index ? Colors.white : Colors.black,
+                  ),
+                ),
+              );
+            }),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            'Quantidade de Vítimas: ${valor == -1 ? "Nenhuma" : valor}',
+            style: const TextStyle(fontSize: 18, color: Colors.white),
+          ),
+        ],
+      ),
     );
   }
+
+  double calcularPontos() {
+    return valor * 1.1;
+  }
+
 }
