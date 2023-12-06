@@ -14,6 +14,7 @@ class SharedAtom{
   static num pontos11 = 1.0;
   static num pontos12 = 1.0;
   static num pontos13 = 1.0;
+  static String nome = '';
 
   static void resetPontuacao() {
     pontos = 0;

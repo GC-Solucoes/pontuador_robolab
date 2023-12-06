@@ -21,6 +21,7 @@ import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets
 import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/vitimas_invertida.widget.dart';
 import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/vitimas_verde.widget.dart';
 import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/vitimas_vermelha.widget.dart';
+import 'package:pontuador_robolab/core/atom/shared_atom.dart';
 
 class MyHomePage extends StatefulWidget with RouteAware {
   const MyHomePage({Key? key}) : super(key: key);
@@ -32,11 +33,32 @@ class MyHomePage extends StatefulWidget with RouteAware {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final TextEditingController _nomeController = TextEditingController();
 
   bool _isRunning = false;
   bool _ladrilhoInicialSelected = false;
   final Stopwatch _stopwatch = Stopwatch();
   Timer? _timer;
+
+  void _mostrarMensagemDeConfirmacao(String nome) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Mensagem de Confirmação'),
+          content: Text('Nome enviado com sucesso: $nome'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      }
+    );
+  }
 
   void _toggleLadrilhoInicial(bool value) {
     setState(() {
@@ -93,6 +115,43 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 const SizedBox(height: 70),
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0),
+                      borderRadius: BorderRadius.circular(15),
+                      border: Border.all(
+                        color: Colors.black,
+                        width: 2,
+                      )),
+                  child: TextField(
+                    controller: _nomeController,
+                    decoration: const InputDecoration(
+                      hintText: 'Nome da equipe',
+                      border: InputBorder.none,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    SharedAtom.nome = _nomeController.text;
+                    _mostrarMensagemDeConfirmacao(SharedAtom.nome);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.all(15),
+                    backgroundColor: Colors.green,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                  child: const Text(
+                    'Enviar',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ),
+                const SizedBox(height: 70),
                 TimerDisplayWidget(_stopwatch.elapsed),
                 const SizedBox(height: 20),
                 TimerControlButtons(
@@ -104,7 +163,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 LadrilhoInicialOption(
                   selected: _ladrilhoInicialSelected,
                   toggleSelection: _toggleLadrilhoInicial,
-                  
                 ),
                 const SizedBox(height: 20),
                 const Text('1° Marcador',
@@ -217,7 +275,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 const SizedBox(height: 20),
                 const VitimasVermelhoWidget(),
                 const SizedBox(height: 20),
-                const Text('Vítimas Vivas ou Mortas Entregues na Área Invertida',
+                const Text(
+                    'Vítimas Vivas ou Mortas Entregues na Área Invertida',
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -257,11 +316,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const PontuacaoFinal()),
+                      MaterialPageRoute(
+                          builder: (context) => const PontuacaoFinal()),
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.all(15),
+                    padding: const EdgeInsets.all(10),
                     backgroundColor: Colors.green,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
@@ -278,4 +338,5 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
-  }}
+  }
+}
