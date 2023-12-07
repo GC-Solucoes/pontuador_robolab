@@ -9,7 +9,7 @@ class TimerDisplayWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       _formatTime(timeElapsed),
-      style: const TextStyle(fontSize: 48),
+      style: const TextStyle(fontSize: 48, color: Colors.white),
     );
   }
 

@@ -24,4 +24,4 @@ Este projeto está licenciado sob a licença MIT. Consulte o arquivo LICENSE.md 
 
 ## Autor
 
-Este projeto foi criado por Gabriel Coimbra (@coimbrox). Se você tiver alguma dúvida ou sugestão, entre em contato comigo em coimbrawebs@gmail.com.
+Este projeto foi criado por Gabriel Coimbra (@coimbrox). Se você tiver alguma dúvida ou sugestão, entre em contato comigo em <coimbrawebs@gmail.com>.
