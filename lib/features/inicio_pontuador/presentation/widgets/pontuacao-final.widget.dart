@@ -38,9 +38,12 @@ class PontuacaoModel {
 
 class PontuacaoDatabase {
   static const String dbName = 'pontuacoes.db';
+  static Database? _database;
 
   Future<Database> get database async {
-    return openDatabase(
+    if (_database != null) return _database!;
+
+    _database = await openDatabase(
       join(await getDatabasesPath(), dbName),
       onCreate: (db, version) {
         return db.execute(
@@ -49,6 +52,7 @@ class PontuacaoDatabase {
       },
       version: 1,
     );
+    return _database!;
   }
 
   Future<void> salvarPontuacao(PontuacaoModel pontuacao) async {
@@ -85,15 +89,27 @@ class _RankingScreenState extends State<RankingScreen> {
   Widget build(BuildContext context) {
     widget.pontuacoes.sort((a, b) => b.pontuacao.compareTo(a.pontuacao));
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Ranking'),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60.0),
+        child: AppBar(
+          backgroundColor: Colors.green,
+          elevation: 0,
+          leading: IconButton(
+            icon: const Icon(Icons.home_filled),
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, '/home');
+            },
+          ),
+        ),
       ),
       body: ListView.builder(
         itemCount: widget.pontuacoes.length,
         itemBuilder: (context, index) {
           final pontuacao = widget.pontuacoes[index];
+          final posicao = index + 1;
           return ListTile(
-            title: Text('${pontuacao.nome} - ${pontuacao.pontuacao}'),
+            title:
+                Text('$posicao° - ${pontuacao.nome} - ${pontuacao.pontuacao}'),
             subtitle: Text('Data: ${pontuacao.data}'),
           );
         },
@@ -121,8 +137,12 @@ class _RankingScreenState extends State<RankingScreen> {
     final Database db = await PontuacaoDatabase().database;
     await db.delete('pontuacoes');
 
+    final List<PontuacaoModel> pontuacoes =
+        await PontuacaoDatabase().getPontuacoes();
+
     setState(() {
       widget.pontuacoes.clear();
+      widget.pontuacoes.addAll(pontuacoes);
     });
 
     ScaffoldMessenger.of(context as BuildContext).showSnackBar(
@@ -157,8 +177,18 @@ class PontuacaoFinal extends StatelessWidget with RouteAware {
     double result2 = double.parse(result);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Pontuação Final'),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60.0),
+        child: AppBar(
+          backgroundColor: Colors.green,
+          elevation: 0,
+          leading: IconButton(
+            icon: const Icon(Icons.home_filled),
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, '/home');
+            },
+          ),
+        ),
       ),
       body: Center(
         child: Column(
@@ -218,7 +248,8 @@ class PontuacaoFinal extends StatelessWidget with RouteAware {
               child: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.delete),// Adicionei um espaço entre o ícone e o texto
+                  Icon(Icons
+                      .delete), // Adicionei um espaço entre o ícone e o texto
                 ],
               ),
             ),

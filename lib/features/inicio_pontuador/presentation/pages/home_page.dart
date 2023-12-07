@@ -1,5 +1,3 @@
-// ignore_for_file: library_private_types_in_public_api
-
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/becos.widget.dart';
@@ -42,22 +40,21 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _mostrarMensagemDeConfirmacao(String nome) {
     showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Mensagem de Confirmação'),
-          content: Text('Nome enviado com sucesso: $nome'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('OK'),
-            ),
-          ],
-        );
-      }
-    );
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Mensagem de Confirmação'),
+            content: Text('Nome enviado com sucesso: $nome'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        });
   }
 
   void _toggleLadrilhoInicial(bool value) {
@@ -114,7 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const SizedBox(height: 70),
+                const SizedBox(height: 40),
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 20),
                   padding: const EdgeInsets.all(10),
@@ -334,6 +331,19 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ],
             ),
+          ),
+        ),
+      ),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60.0),
+        child: AppBar(
+          backgroundColor: Colors.green,
+          elevation: 0,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios_new),
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, '/home');
+            },
           ),
         ),
       ),
