@@ -28,6 +28,8 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  flutter_keyboard_visibility: ^5.0.2
+  shared_preferences: ^2.0.8
   sqflite: ^2.0.0
   path: ^1.8.0
   firebase_core: ^1.10.6
