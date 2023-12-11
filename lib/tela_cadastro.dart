@@ -128,11 +128,14 @@ class _TelaCadastroState extends State<TelaCadastro> {
                         left: Radius.circular(25.0),
                         right: Radius.circular(20.0)),
                   ),
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 12.0),
+                  contentPadding: EdgeInsets.symmetric(
+                    vertical: 10.0,
+                    horizontal: 12.0,
+                  ),
                 ),
                 cursorColor: Colors.black,
               ),
+
               const SizedBox(height: 20.0),
               TextField(
                 controller: _confirmarSenhaController,
@@ -168,25 +171,44 @@ class _TelaCadastroState extends State<TelaCadastro> {
                   child: ElevatedButton(
                     onPressed: () async {
                       if (_senhaController.text ==
-                          _confirmarSenhaController.text && _nomeUsuarioController.text != '' && _emailController.text != '' && _senhaController.text != '' && _confirmarSenhaController.text != '') {
-                        final usuario = {
-                          'nomeUsuario': _nomeUsuarioController.text,
-                          'email': _emailController.text,
-                          'senha': _senhaController.text
-                        };
+                              _confirmarSenhaController.text &&
+                          _nomeUsuarioController.text != '' &&
+                          _emailController.text != '' &&
+                          _senhaController.text != '' &&
+                          _confirmarSenhaController.text != '') {
+                        bool emailCadastrado = await _databaseHelper
+                            .verificarEmailCadastrado(_emailController.text);
 
-                        await _databaseHelper.insertUsuario(usuario);
+                        if (emailCadastrado) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content:
+                                  Text('Já existe um cadastro neste email'),
+                            ),
+                          );
+                          Navigator.pushReplacementNamed(context, '/');
+                        } else {
+                          final usuario = {
+                            'nomeUsuario': _nomeUsuarioController.text,
+                            'email': _emailController.text,
+                            'senha': _senhaController.text
+                          };
 
-                        Navigator.pushReplacementNamed(context, '/');
-                      } 
-                      if ( _nomeUsuarioController.text == '' && _emailController.text == '' && _senhaController.text == '' && _confirmarSenhaController.text == '') {
+                          await _databaseHelper.insertUsuario(usuario);
+                          Navigator.pushReplacementNamed(context, '/');
+                        }
+                      }
+                      if (_nomeUsuarioController.text == '' ||
+                          _emailController.text == '' ||
+                          _senhaController.text == '' ||
+                          _confirmarSenhaController.text == '') {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text('Todos os campos são obrigatórios'),
                           ),
                         );
-                      }
-                      else {
+                      } else if (_senhaController.text !=
+                          _confirmarSenhaController.text) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text('As senhas não coincidem'),

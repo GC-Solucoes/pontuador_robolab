@@ -38,4 +38,21 @@ class DatabaseHelper {
     final db = await database;
     return await db.query(tableName);
   }
+
+  Future<void> deleteAllUsuarios() async {
+    final db = await database;
+    await db.delete(tableName);
+  }
+
+  Future<bool> verificarEmailCadastrado(String email) async {
+  final db = await database;
+  List<Map<String, dynamic>> result = await db.query(
+    'usuarios',
+    columns: ['email'],
+    where: 'email = ?',
+    whereArgs: [email],
+  );
+
+  return result.isNotEmpty;
+}
 }
