@@ -1,7 +1,7 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
-import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/pontuacao-final.widget.dart';
+import 'package:pontuador_robolab/tela_cadastro.dart';
 import 'tela_login.dart';
 import 'package:pontuador_robolab/features/inicio_pontuador/presentation/pages/home_page.dart';
 
@@ -22,7 +22,8 @@ class MyApp extends StatelessWidget {
       initialRoute: '/', // Defina a rota inicial
       routes: {
         '/': (context) => TelaLogin(),  // Rota inicial
-        '/home': (context) => MyHomePage(),  // Rota para a página principal
+        '/home': (context) => MyHomePage(), 
+        '/cadastro': (context) => TelaCadastro(), // Rota para a página principal
         // Adicione outras rotas aqui, se necessário
       },
     );

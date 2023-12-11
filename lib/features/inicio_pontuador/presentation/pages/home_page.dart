@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/becos.widget.dart';
@@ -342,7 +344,7 @@ class _MyHomePageState extends State<MyHomePage> {
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios_new),
             onPressed: () {
-              Navigator.pushReplacementNamed(context, '/home');
+              Navigator.pushReplacementNamed(context, '/');
             },
           ),
         ),
