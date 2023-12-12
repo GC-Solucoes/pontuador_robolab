@@ -20,7 +20,7 @@ class LadrilhoInicialOption extends StatelessWidget {
           children: <Widget>[
             const Text(
               'Ladrilho Inicial: ',
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.white, fontSize: 18),
             ),
             const SizedBox(width: 10),
             ElevatedButton(

@@ -1,5 +1,3 @@
-// ignore_for_file: library_private_types_in_public_api
-
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:pontuador_robolab/core/atom/shared_atom.dart';
@@ -12,8 +10,35 @@ class VitimasVerdeWidget extends StatefulWidget {
 }
 
 class _VitimasVerdeWidgetState extends State<VitimasVerdeWidget> {
-  int quantidadeVitimas = -1; // Inicializado com -1 para nenhum botão estar selecionado
+  int quantidadeVitimas = 0; // Inicializado com 0
   num point = 0.0;
+
+  void acrescentarQuantidade() {
+    setState(() {
+      quantidadeVitimas++;
+      point = calcularPontos();
+      atualizarPontos();
+    });
+  }
+
+  void diminuirQuantidade() {
+    if (quantidadeVitimas > 0) {
+      setState(() {
+        quantidadeVitimas--;
+        point = calcularPontos();
+        atualizarPontos();
+      });
+    }
+  }
+
+  void atualizarPontos() {
+    if (point == 0) {
+      SharedAtom.pontos10 = 1.0;
+    } else {
+      SharedAtom.pontos10 = calcularPontos();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -21,43 +46,36 @@ class _VitimasVerdeWidgetState extends State<VitimasVerdeWidget> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Wrap(
-            spacing: 8.0,
-            runSpacing: 8.0,
-            children: List.generate(6, (index) {
-              final buttonText = (index).toString();
-              return ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    quantidadeVitimas = index;
-
-                    point = calcularPontos();
-
-                    if (point == 0) {
-                      SharedAtom.pontos10 = 1.0;
-                    }
-                    else {
-                      SharedAtom.pontos10 = calcularPontos();
-                    }
-                    
-                     // Adiciona os pontos em SharedAtom.pontos10
-                  });
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: quantidadeVitimas == index ? Colors.green : Colors.green,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              InkWell(
+                onTap: acrescentarQuantidade,
+                child: const Icon(
+                  Icons.add,
+                  color: Colors.green,
+                  size: 40,
                 ),
-                child: Text(
-                  buttonText,
-                  style: TextStyle(
-                    color: quantidadeVitimas == index ? Colors.white : Colors.black,
-                  ),
+              ),
+              const SizedBox(width: 8),
+              Text(
+                '$quantidadeVitimas',
+                style: const TextStyle(fontSize: 24, color: Colors.white),
+              ),
+              const SizedBox(width: 8),
+              InkWell(
+                onTap: diminuirQuantidade,
+                child: const Icon(
+                  Icons.remove,
+                  color: Colors.red,
+                  size: 40,
                 ),
-              );
-            }),
+              ),
+            ],
           ),
           const SizedBox(height: 10),
           Text(
-            'Quantidade de Vítimas: ${quantidadeVitimas == -1 ? "Nenhuma" : quantidadeVitimas}',
+            'Quantidade de Vítimas: $quantidadeVitimas',
             style: const TextStyle(fontSize: 18, color: Colors.white),
           ),
         ],

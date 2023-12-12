@@ -12,8 +12,34 @@ class VitimasInvertidaWidget extends StatefulWidget {
 }
 
 class _VitimasInvertidaWidgetState extends State<VitimasInvertidaWidget> {
-  int valor = -1;  // Inicializado com -1 para nenhum botão estar selecionado
+  int quantidadeVitimas = 0; // Inicializado com 0
   num point = 0.0;
+
+  void acrescentarQuantidade() {
+    setState(() {
+      quantidadeVitimas++;
+      point = calcularPontos();
+      atualizarPontos();
+    });
+  }
+
+  void diminuirQuantidade() {
+    if (quantidadeVitimas > 0) {
+      setState(() {
+        quantidadeVitimas--;
+        point = calcularPontos();
+        atualizarPontos();
+      });
+    }
+  }
+
+  void atualizarPontos() {
+    if (point == 0) {
+      SharedAtom.pontos12 = 1.0;
+    } else {
+      SharedAtom.pontos12 = calcularPontos();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,43 +48,36 @@ class _VitimasInvertidaWidgetState extends State<VitimasInvertidaWidget> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Wrap(
-            spacing: 8.0,
-            runSpacing: 8.0,
-            children: List.generate(11, (index) {
-              final buttonText = (index).toString();
-              return ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    valor = index; // Define o valor para o número clicado
-                    
-                    point = calcularPontos();
-
-                    if (point == 0) {
-                        SharedAtom.pontos12 = 1.0;
-                    }
-                    else {
-                        SharedAtom.pontos12 = calcularPontos();
-                    }
-
-                  });
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: valor == index ? Colors.green : Colors.green,
-                  // Define a cor do botão com base na seleção
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              InkWell(
+                onTap: acrescentarQuantidade,
+                child: const Icon(
+                  Icons.add,
+                  color: Colors.green,
+                  size: 40,
                 ),
-                child: Text(
-                  buttonText,
-                  style: TextStyle(
-                    color: valor == index ? Colors.white : Colors.black,
-                  ),
+              ),
+              const SizedBox(width: 8),
+              Text(
+                '$quantidadeVitimas',
+                style: const TextStyle(fontSize: 24, color: Colors.white),
+              ),
+              const SizedBox(width: 8),
+              InkWell(
+                onTap: diminuirQuantidade,
+                child: const Icon(
+                  Icons.remove,
+                  color: Colors.red,
+                  size: 40,
                 ),
-              );
-            }),
+              ),
+            ],
           ),
           const SizedBox(height: 10),
           Text(
-            'Quantidade de Vítimas: ${valor == -1 ? "Nenhuma" : valor}',
+            'Quantidade de Vítimas: $quantidadeVitimas',
             style: const TextStyle(fontSize: 18, color: Colors.white),
           ),
         ],
@@ -67,8 +86,8 @@ class _VitimasInvertidaWidgetState extends State<VitimasInvertidaWidget> {
   }
 
   num calcularPontos() {
-    num z = pow(1.1, valor);
+    num z = pow(1.1, quantidadeVitimas);
+    // Multiplica a quantidade de vítimas por 1.3 e retorna um double
     return z;
   }
-
 }
