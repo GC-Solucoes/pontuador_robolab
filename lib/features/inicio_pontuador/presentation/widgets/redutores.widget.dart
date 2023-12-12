@@ -11,98 +11,69 @@ class RedutoresWidget extends StatefulWidget {
 }
 
 class _RedutoresWidgetState extends State<RedutoresWidget> {
-  int pontos = 0;
-  List<bool> buttonStates = List.generate(15, (index) => false);
+  int quantidade = 0;
+
+  void atualizarPontos() {
+    SharedAtom.pontos4 = quantidade * 5;
+  }
+
+  void incrementarQuantidade() {
+    setState(() {
+      quantidade++;
+    });
+    atualizarPontos();
+  }
+
+  void decrementarQuantidade() {
+    if (quantidade > 0) {
+      setState(() {
+        quantidade--;
+      });
+      atualizarPontos();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final buttonSize = (size.width - 5) / 7.6;
 
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Wrap(
-            alignment: WrapAlignment.center,
-            spacing: buttonSize / 4,
-            runSpacing: buttonSize / 4,
-            children: List.generate(9, (index) {
-              final buttonText = (index + 1).toString();
-              return InkWell(
-                onTap: () {
-                  setState(() {
-                    buttonStates[index] = !buttonStates[index];
-                    updatePoints(index);
-                  });
-                },
-                child: buildButton(index, buttonText, buttonSize),
-              );
-            }),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              InkWell(
+                onTap: incrementarQuantidade,
+                child: const Icon(
+                  Icons.add,
+                  color: Colors.green,
+                  size: 40,
+                ),
+              ),
+              const SizedBox(width: 20),
+              Text(
+                '$quantidade',
+                style: const TextStyle(fontSize: 24, color: Colors.white),
+              ),
+              const SizedBox(width: 20),
+              InkWell(
+                onTap: decrementarQuantidade,
+                child: const Icon(
+                  Icons.remove,
+                  color: Colors.red,
+                  size: 40,
+                ),
+              ),
+            ],
           ),
-          const SizedBox(height: 10),
-
-          Wrap(
-            alignment: WrapAlignment.center,
-            spacing: buttonSize / 4,
-            runSpacing: buttonSize / 4,
-            children: List.generate(6, (index) {
-              final buttonText = (index + 10).toString();
-              final buttonIndex = index + 9;
-              return InkWell(
-                onTap: () {
-                  setState(() {
-                    buttonStates[buttonIndex] = !buttonStates[buttonIndex];
-                    updatePoints(buttonIndex);
-                  });
-                },
-                child: buildButton(buttonIndex, buttonText, buttonSize),
-              );
-            }),
-          ),
-          const SizedBox(height: 10),
-
+          const SizedBox(height: 15),
           Text(
-            'Pontos: $pontos',
+            'Pontos: ${quantidade * 5}',
             style: const TextStyle(fontSize: 18, color: Colors.white),
-          ),
+          )
         ],
-      ),
-    );
-  }
-
-  void updatePoints(int index) {
-    if (index <= 15) {
-      pontos += buttonStates[index] ? 5 : -5;
-      SharedAtom.pontos4 = pontos; // Adicionar pontuação ao SharedAtom.pontos3
-    }
-  }
-
-  Widget buildButton(int index, String buttonText, double buttonSize) {
-    return Container(
-      width: buttonSize,
-      height: buttonSize,
-      decoration: BoxDecoration(
-        color: buttonStates[index] ? Colors.green : Colors.green,
-        borderRadius: BorderRadius.circular(15.0),
-      ),
-      child: InkWell(
-        onTap: () {
-          setState(() {
-            buttonStates[index] = !buttonStates[index];
-            updatePoints(index);
-          });
-        },
-        child: Center(
-          child: Text(
-            buttonText,
-            style: TextStyle(
-              color: buttonStates[index] ? Colors.white : Colors.black,
-              fontSize: buttonSize / 3,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
       ),
     );
   }

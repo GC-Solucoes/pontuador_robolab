@@ -1,7 +1,9 @@
 // ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:pontuador_robolab/features/inicio_pontuador/presentation/pages/home_page.dart';
 import 'package:pontuador_robolab/core/atom/shared_atom.dart';
+import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/timer_display_widget.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -9,12 +11,14 @@ class PontuacaoModel {
   int? id;
   String nome;
   double pontuacao;
+  String tempo;
   DateTime data;
 
   PontuacaoModel(
       {this.id,
       required this.nome,
       required this.pontuacao,
+      required this.tempo,
       required this.data});
 
   Map<String, dynamic> toMap() {
@@ -22,6 +26,7 @@ class PontuacaoModel {
       'id': id,
       'nome': nome,
       'pontuacao': pontuacao,
+      'tempo': tempo.toString(),
       'data': data.toIso8601String(),
     };
   }
@@ -31,6 +36,7 @@ class PontuacaoModel {
       id: map['id'],
       nome: map['nome'],
       pontuacao: map['pontuacao'],
+      tempo: map['tempo'],
       data: DateTime.parse(map['data']),
     );
   }
@@ -47,10 +53,10 @@ class PontuacaoDatabase {
       join(await getDatabasesPath(), dbName),
       onCreate: (db, version) {
         return db.execute(
-          "CREATE TABLE pontuacoes(id INTEGER PRIMARY KEY, nome TEXT, pontuacao REAL, data TEXT)",
+          "CREATE TABLE pontuacoes(id INTEGER PRIMARY KEY, nome TEXT, pontuacao REAL, tempo TEXT, data TEXT)",
         );
       },
-      version: 1,
+      version: 2,
     );
     return _database!;
   }
@@ -109,7 +115,7 @@ class _RankingScreenState extends State<RankingScreen> {
           final posicao = index + 1;
           return ListTile(
             title:
-                Text('$posicao° - ${pontuacao.nome} - ${pontuacao.pontuacao}'),
+                Text('$posicao° - ${pontuacao.nome} - ${pontuacao.pontuacao} - ${pontuacao.tempo}'),
             subtitle: Text('Data: ${pontuacao.data}'),
           );
         },
@@ -213,6 +219,7 @@ class PontuacaoFinal extends StatelessWidget with RouteAware {
                 final pontuacaoModel = PontuacaoModel(
                   nome: SharedAtom.nome,
                   pontuacao: result2,
+                  tempo: SharedAtom.cronometro,
                   data: DateTime.now(),
                 );
                 await PontuacaoDatabase().salvarPontuacao(pontuacaoModel);

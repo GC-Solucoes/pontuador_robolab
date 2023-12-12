@@ -76,12 +76,28 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _pauseTimer() {
+    String formattedDuration = _formatDuration(_stopwatch.elapsed);
+
+    SharedAtom.cronometro = formattedDuration;
     if (_isRunning) {
       _stopwatch.stop();
       _timer?.cancel();
       _isRunning = false;
     }
   }
+  
+  String _formatDuration(Duration duration) {
+  int minutos = duration.inMinutes;
+  int segundos = duration.inSeconds % 60;
+  int milissegundos = (duration.inMilliseconds % 1000);
+
+  String formattedMinutes = minutos.toString().padLeft(2, '0');
+  String formattedSeconds = segundos.toString().padLeft(2, '0');
+  String formattedMilliseconds =
+      (milissegundos ~/ 10).toString().padLeft(2, '0'); // Ajuste aqui
+
+  return '$formattedMinutes:$formattedSeconds:$formattedMilliseconds';
+}
 
   void _resetTimer() {
     _stopwatch.reset();
@@ -150,20 +166,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     style: TextStyle(fontSize: 18),
                   ),
                 ),
-                const SizedBox(height: 70),
-                TimerDisplayWidget(_stopwatch.elapsed),
-                const SizedBox(height: 20),
-                TimerControlButtons(
-                  onStart: _startTimer,
-                  onPause: _pauseTimer,
-                  onReset: _resetTimer,
-                ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 60),
                 LadrilhoInicialOption(
                   selected: _ladrilhoInicialSelected,
                   toggleSelection: _toggleLadrilhoInicial,
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 40),
                 const Text('1° Marcador',
                     style: TextStyle(
                         color: Colors.white,
@@ -187,7 +195,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         fontSize: 25)),
                 const SizedBox(height: 20),
                 const TerceiroMarcadorWidget(),
-                const SizedBox(height: 20),
+                const SizedBox(height: 70),
                 const Text('Obstáculos',
                     style: TextStyle(
                         color: Colors.white,
@@ -195,7 +203,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         fontSize: 25)),
                 const SizedBox(height: 20),
                 const ObstaculosWidget(),
-                const SizedBox(height: 20),
+                const SizedBox(height: 40),
                 const Text('Gangorras',
                     style: TextStyle(
                         color: Colors.white,
@@ -203,7 +211,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         fontSize: 25)),
                 const SizedBox(height: 20),
                 const GangorrasWidget(),
-                const SizedBox(height: 20),
+                const SizedBox(height: 40),
                 const Text('Redutores',
                     style: TextStyle(
                         color: Colors.white,
@@ -211,7 +219,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         fontSize: 25)),
                 const SizedBox(height: 20),
                 const RedutoresWidget(),
-                const SizedBox(height: 20),
+                const SizedBox(height: 40),
                 const Text('Intercessões',
                     style: TextStyle(
                         color: Colors.white,
@@ -219,7 +227,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         fontSize: 25)),
                 const SizedBox(height: 20),
                 const IntersecoesWidget(),
-                const SizedBox(height: 20),
+                const SizedBox(height: 40),
                 const Text('Gap',
                     style: TextStyle(
                         color: Colors.white,
@@ -227,7 +235,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         fontSize: 25)),
                 const SizedBox(height: 20),
                 const GapWidget(),
-                const SizedBox(height: 20),
+                const SizedBox(height: 40),
                 const Text('Passagem',
                     style: TextStyle(
                         color: Colors.white,
@@ -235,7 +243,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         fontSize: 25)),
                 const SizedBox(height: 20),
                 const PassagemWidget(),
-                const SizedBox(height: 20),
+                const SizedBox(height: 40),
                 const Text('Becos',
                     style: TextStyle(
                         color: Colors.white,
@@ -243,7 +251,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         fontSize: 25)),
                 const SizedBox(height: 20),
                 const BecosWidget(),
-                const SizedBox(height: 20),
+                const SizedBox(height: 40),
                 const Text('Rampas',
                     style: TextStyle(
                         color: Colors.white,
@@ -251,13 +259,13 @@ class _MyHomePageState extends State<MyHomePage> {
                         fontSize: 25)),
                 const SizedBox(height: 20),
                 const RampasWidget(),
-                const SizedBox(height: 20),
+                const SizedBox(height: 50),
                 const Text('Vítimas Resgatadas',
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                         fontSize: 25)),
-                const SizedBox(height: 20),
+                const SizedBox(height: 30),
                 const Text('Vítimas Vivas Entregues na Área Verde',
                     style: TextStyle(
                         color: Colors.white,
@@ -265,7 +273,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         fontSize: 20)),
                 const SizedBox(height: 20),
                 const VitimasVerdeWidget(),
-                const SizedBox(height: 20),
+                const SizedBox(height: 40),
                 const Text('Vítimas Mortas Entregues na Área Vermelha',
                     style: TextStyle(
                         color: Colors.white,
@@ -273,7 +281,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         fontSize: 20)),
                 const SizedBox(height: 20),
                 const VitimasVermelhoWidget(),
-                const SizedBox(height: 20),
+                const SizedBox(height: 40),
                 const Text(
                     'Vítimas Vivas ou Mortas Entregues na Área Invertida',
                     style: TextStyle(
@@ -282,7 +290,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         fontSize: 20)),
                 const SizedBox(height: 20),
                 const VitimasInvertidaWidget(),
-                const SizedBox(height: 20),
+                const SizedBox(height: 60),
                 const Text('Kit Resgate Entregue',
                     style: TextStyle(
                         color: Colors.white,
@@ -290,21 +298,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         fontSize: 25)),
                 const SizedBox(height: 20),
                 const KitResgateWidget(),
-                const SizedBox(height: 20),
-                const Text('Cronômetro',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25)),
-                const SizedBox(height: 20),
-                TimerDisplayWidget(_stopwatch.elapsed),
-                const SizedBox(height: 20),
-                TimerControlButtons(
-                  onStart: _startTimer,
-                  onPause: _pauseTimer,
-                  onReset: _resetTimer,
-                ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 40),
                 const Text('FIM',
                     style: TextStyle(
                         color: Colors.white,
@@ -339,7 +333,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60.0),
         child: AppBar(
-          backgroundColor: Colors.green,
+          backgroundColor: Color.fromARGB(255, 39, 199, 60),
           elevation: 0,
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios_new),
@@ -347,6 +341,19 @@ class _MyHomePageState extends State<MyHomePage> {
               Navigator.pushReplacementNamed(context, '/');
             },
           ),
+          actions: [
+            TimerDisplayWidget(
+              _stopwatch.elapsed,
+              verticalPadding: 18.0,
+              rightPadding: 10.0,
+            ),
+            TimerControlButtons(
+              onStart: _startTimer,
+              onPause: _pauseTimer,
+              onReset: _resetTimer,
+            ),
+            const SizedBox(width: 16.0),
+          ],
         ),
       ),
     );

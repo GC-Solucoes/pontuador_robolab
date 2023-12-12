@@ -1,5 +1,3 @@
-// ignore_for_file: library_private_types_in_public_api
-
 import 'package:flutter/material.dart';
 import 'package:pontuador_robolab/core/atom/shared_atom.dart';
 
@@ -11,89 +9,68 @@ class GangorrasWidget extends StatefulWidget {
 }
 
 class _GangorrasWidgetState extends State<GangorrasWidget> {
-  List<bool> buttonStates = List.generate(6, (index) => false);
+  int quantidade = 0;
 
   void atualizarPontos() {
-    int novoPonto = 0;
-    for (int i = 0; i < buttonStates.length; i++) {
-      if (buttonStates[i]) {
-        novoPonto += 15;
-      }
-    }
-    SharedAtom.pontos3 = novoPonto;
+    SharedAtom.pontos3 = quantidade * 15;
   }
 
-  void atualizarEstado(int index) {
+  void incrementarQuantidade() {
     setState(() {
-      buttonStates[index] = !buttonStates[index];
+      quantidade++;
     });
     atualizarPontos();
   }
 
-  int getPoints() {
-    int pontos = 0;
-    for (int i = 0; i < buttonStates.length; i++) {
-      if (buttonStates[i]) {
-        pontos += 15;
-      }
+  void decrementarQuantidade() {
+    if (quantidade > 0) {
+      setState(() {
+        quantidade--;
+      });
+      atualizarPontos();
     }
-    return pontos;
   }
 
   @override
   Widget build(BuildContext context) {
+
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints constraints) {
-              double buttonSize = constraints.maxWidth / 8;
-              return Wrap(
-                spacing: buttonSize / 4,
-                runSpacing: buttonSize / 4,
-                children: List.generate(6, (index) {
-                  final buttonText = (index + 1).toString();
-                  return InkWell(
-                    onTap: () {
-                      setState(() {
-                        buttonStates[index] = !buttonStates[index];
-                        atualizarPontos();
-                      });
-                    },
-                    child: Container(
-                      width: buttonSize,
-                      height: buttonSize,
-                      decoration: BoxDecoration(
-                        color: buttonStates[index] ? Colors.green : Colors.green,
-                        borderRadius: BorderRadius.circular(15.0),
-                        border: Border.all(
-                          color: Colors.green,
-                          width: buttonSize / 4,
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          buttonText,
-                          style: TextStyle(
-                            color: buttonStates[index] ? Colors.white : Colors.black,
-                            fontSize: buttonSize / 3,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-                }),
-              );
-            },
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              InkWell(
+                onTap: incrementarQuantidade,
+                child: const Icon(
+                  Icons.add,
+                  color: Colors.green,
+                  size: 40,
+                ),
+              ),
+              const SizedBox(width: 20),
+              Text(
+                '$quantidade',
+                style: const TextStyle(fontSize: 24, color: Colors.white),
+              ),
+              const SizedBox(width: 20),
+              InkWell(
+                onTap: decrementarQuantidade,
+                child: const Icon(
+                  Icons.remove,
+                  color: Colors.red,
+                  size: 40,
+                ),
+              ),
+            ],
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 15),
           Text(
-            'Pontos: ${getPoints()}',
+            'Pontos: ${quantidade * 15}',
             style: const TextStyle(fontSize: 18, color: Colors.white),
-          ),
+          )
         ],
       ),
     );

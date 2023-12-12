@@ -15,6 +15,8 @@ class SharedAtom{
   static num pontos12 = 1.0;
   static num pontos13 = 1.0;
   static String nome = '';
+  
+  static String cronometro = '';
 
   static void resetPontuacao() {
     pontos = 0;
