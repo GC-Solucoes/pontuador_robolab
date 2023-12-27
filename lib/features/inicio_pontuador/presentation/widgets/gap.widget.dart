@@ -14,7 +14,7 @@ class _GapWidgetState extends State<GapWidget> {
   int quantidade = 0;
 
   void atualizarPontos() {
-    SharedAtom.pontos6 = quantidade * 15;
+    SharedAtom.pontos6 = quantidade * 10;
   }
 
   void incrementarQuantidade() {
@@ -45,10 +45,10 @@ class _GapWidgetState extends State<GapWidget> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               InkWell(
-                onTap: incrementarQuantidade,
+                onTap: decrementarQuantidade,
                 child: const Icon(
-                  Icons.add,
-                  color: Colors.green,
+                  Icons.remove,
+                  color: Colors.red,
                   size: 40,
                 ),
               ),
@@ -59,18 +59,18 @@ class _GapWidgetState extends State<GapWidget> {
               ),
               const SizedBox(width: 20),
               InkWell(
-                onTap: decrementarQuantidade,
+                onTap: incrementarQuantidade,
                 child: const Icon(
-                  Icons.remove,
-                  color: Colors.red,
+                  Icons.add,
+                  color: Colors.green,
                   size: 40,
                 ),
-              ),
+              ), 
             ],
           ),
           const SizedBox(height: 15),
           Text(
-            'Pontos: ${quantidade * 15}',
+            'Pontos: ${quantidade * 10}',
             style: const TextStyle(fontSize: 18, color: Colors.white),
           )
         ],

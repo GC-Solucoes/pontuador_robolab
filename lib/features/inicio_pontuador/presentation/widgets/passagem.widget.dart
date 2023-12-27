@@ -45,10 +45,10 @@ class _PassagemWidgetState extends State<PassagemWidget> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               InkWell(
-                onTap: incrementarQuantidade,
+                onTap: decrementarQuantidade,
                 child: const Icon(
-                  Icons.add,
-                  color: Colors.green,
+                  Icons.remove,
+                  color: Colors.red,
                   size: 40,
                 ),
               ),
@@ -59,13 +59,13 @@ class _PassagemWidgetState extends State<PassagemWidget> {
               ),
               const SizedBox(width: 20),
               InkWell(
-                onTap: decrementarQuantidade,
+                onTap: incrementarQuantidade,
                 child: const Icon(
-                  Icons.remove,
-                  color: Colors.red,
+                  Icons.add,
+                  color: Colors.green,
                   size: 40,
                 ),
-              ),
+              ), 
             ],
           ),
           const SizedBox(height: 15),

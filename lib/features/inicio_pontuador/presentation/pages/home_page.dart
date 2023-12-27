@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: library_private_types_in_public_api, unused_element
 
 import 'dart:async';
 import 'package:flutter/material.dart';
@@ -85,19 +85,19 @@ class _MyHomePageState extends State<MyHomePage> {
       _isRunning = false;
     }
   }
-  
+
   String _formatDuration(Duration duration) {
-  int minutos = duration.inMinutes;
-  int segundos = duration.inSeconds % 60;
-  int milissegundos = (duration.inMilliseconds % 1000);
+    int minutos = duration.inMinutes;
+    int segundos = duration.inSeconds % 60;
+    int milissegundos = (duration.inMilliseconds % 1000);
 
-  String formattedMinutes = minutos.toString().padLeft(2, '0');
-  String formattedSeconds = segundos.toString().padLeft(2, '0');
-  String formattedMilliseconds =
-      (milissegundos ~/ 10).toString().padLeft(2, '0'); // Ajuste aqui
+    String formattedMinutes = minutos.toString().padLeft(2, '0');
+    String formattedSeconds = segundos.toString().padLeft(2, '0');
+    String formattedMilliseconds =
+        (milissegundos ~/ 10).toString().padLeft(2, '0'); // Ajuste aqui
 
-  return '$formattedMinutes:$formattedSeconds:$formattedMilliseconds';
-}
+    return '$formattedMinutes:$formattedSeconds:$formattedMilliseconds';
+  }
 
   void _resetTimer() {
     _stopwatch.reset();
@@ -141,30 +141,14 @@ class _MyHomePageState extends State<MyHomePage> {
                         width: 2,
                       )),
                   child: TextField(
-                    controller: _nomeController,
-                    decoration: const InputDecoration(
-                      hintText: 'Nome da equipe',
-                      border: InputBorder.none,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () {
-                    SharedAtom.nome = _nomeController.text;
-                    _mostrarMensagemDeConfirmacao(SharedAtom.nome);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.all(15),
-                    backgroundColor: Colors.green,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
-                  child: const Text(
-                    'Enviar',
-                    style: TextStyle(fontSize: 18),
-                  ),
+                      controller: _nomeController,
+                      decoration: const InputDecoration(
+                        hintText: 'Nome da equipe',
+                        border: InputBorder.none,
+                      ),
+                      onChanged: (value) {
+                        SharedAtom.nome = value;
+                      }),
                 ),
                 const SizedBox(height: 60),
                 LadrilhoInicialOption(
@@ -196,70 +180,83 @@ class _MyHomePageState extends State<MyHomePage> {
                 const SizedBox(height: 20),
                 const TerceiroMarcadorWidget(),
                 const SizedBox(height: 70),
-                const Text('Obstáculos',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25)),
-                const SizedBox(height: 20),
-                const ObstaculosWidget(),
-                const SizedBox(height: 40),
-                const Text('Gangorras',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25)),
-                const SizedBox(height: 20),
-                const GangorrasWidget(),
-                const SizedBox(height: 40),
-                const Text('Redutores',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25)),
-                const SizedBox(height: 20),
-                const RedutoresWidget(),
-                const SizedBox(height: 40),
-                const Text('Intercessões',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25)),
-                const SizedBox(height: 20),
-                const IntersecoesWidget(),
-                const SizedBox(height: 40),
-                const Text('Gap',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25)),
-                const SizedBox(height: 20),
-                const GapWidget(),
-                const SizedBox(height: 40),
-                const Text('Passagem',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25)),
-                const SizedBox(height: 20),
-                const PassagemWidget(),
-                const SizedBox(height: 40),
-                const Text('Becos',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25)),
-                const SizedBox(height: 20),
-                const BecosWidget(),
-                const SizedBox(height: 40),
-                const Text('Rampas',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25)),
-                const SizedBox(height: 20),
-                const RampasWidget(),
-                const SizedBox(height: 50),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Column(
+                      children: [
+                        Text('Obstáculos',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 25)),
+                        SizedBox(height: 20),
+                        ObstaculosWidget(),
+                        SizedBox(height: 40),
+                        Text('Gangorras',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 25)),
+                        SizedBox(height: 20),
+                        GangorrasWidget(),
+                        SizedBox(height: 40),
+                        Text('Redutores',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 25)),
+                        SizedBox(height: 20),
+                        RedutoresWidget(),
+                        SizedBox(height: 40),
+                        Text('Intersecções',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 25)),
+                        SizedBox(height: 20),
+                        IntersecoesWidget(),
+                      ],
+                    ),
+                    SizedBox(width: 10),
+                    Column(
+                      children: [
+                        Text('Gaps',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 25)),
+                        SizedBox(height: 20),
+                        GapWidget(),
+                        SizedBox(height: 40),
+                        Text('Passagens',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 25)),
+                        SizedBox(height: 20),
+                        PassagemWidget(),
+                        SizedBox(height: 40),
+                        Text('Becos',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 25)),
+                        SizedBox(height: 20),
+                        BecosWidget(),
+                        SizedBox(height: 40),
+                        Text('Rampas',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 25)),
+                        SizedBox(height: 20),
+                        RampasWidget(),
+                      ],
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 100),
                 const Text('Vítimas Resgatadas',
                     style: TextStyle(
                         color: Colors.white,
@@ -299,12 +296,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 const SizedBox(height: 20),
                 const KitResgateWidget(),
                 const SizedBox(height: 40),
-                const Text('FIM',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20)),
-                const SizedBox(height: 15),
                 ElevatedButton(
                   onPressed: () {
                     Navigator.push(
@@ -322,6 +313,28 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   child: const Text(
                     'Ver Pontuação Final',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const VisualizarPontuacoesScreen()
+                      ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.all(10),
+                    backgroundColor: Colors.green,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                  child: const Text(
+                    'Ver Pontuações Cadastradas',
                     style: TextStyle(fontSize: 18),
                   ),
                 ),

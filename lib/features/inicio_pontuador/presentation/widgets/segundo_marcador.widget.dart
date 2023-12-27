@@ -20,7 +20,7 @@ class SegundoMarcadorWidget extends StatelessWidget {
                   color: Colors.white
                 )
               ),
-              DropdownReusable(),
+              DropdownReusable(tentativa: 1),
             ],
           ),
         ),
@@ -35,7 +35,7 @@ class SegundoMarcadorWidget extends StatelessWidget {
                   color: Colors.white
                 )
               ),
-              DropdownReusable(),
+              DropdownReusable(tentativa: 2),
             ],
           ),
         ),
@@ -50,7 +50,7 @@ class SegundoMarcadorWidget extends StatelessWidget {
                   color: Colors.white
                 )
               ),
-              DropdownReusable(),
+              DropdownReusable(tentativa: 3),
             ],
           ),
         ),

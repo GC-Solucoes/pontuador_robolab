@@ -35,7 +35,6 @@ class _RampasWidgetState extends State<RampasWidget> {
 
   @override
   Widget build(BuildContext context) {
-
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -45,10 +44,10 @@ class _RampasWidgetState extends State<RampasWidget> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               InkWell(
-                onTap: incrementarQuantidade,
+                onTap: decrementarQuantidade,
                 child: const Icon(
-                  Icons.add,
-                  color: Colors.green,
+                  Icons.remove,
+                  color: Colors.red,
                   size: 40,
                 ),
               ),
@@ -59,10 +58,10 @@ class _RampasWidgetState extends State<RampasWidget> {
               ),
               const SizedBox(width: 20),
               InkWell(
-                onTap: decrementarQuantidade,
+                onTap: incrementarQuantidade,
                 child: const Icon(
-                  Icons.remove,
-                  color: Colors.red,
+                  Icons.add,
+                  color: Colors.green,
                   size: 40,
                 ),
               ),

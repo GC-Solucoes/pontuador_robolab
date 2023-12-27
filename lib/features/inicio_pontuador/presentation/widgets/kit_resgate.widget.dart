@@ -63,9 +63,9 @@ class _KitResgateWidgetState extends State<KitResgateWidget> {
                         child: Text(
                           [
                             "Não Entregue",
-                            "Entregue na área vermelha (robo)",
+                            "Entregue na área vermelha (robô)",
                             "Entregue na área vermelha (trajeto)",
-                            "Entregue na área verde (robo)",
+                            "Entregue na área verde (robô)",
                             "Entregue na área verde (trajeto)",
                           ][index],
                           style: TextStyle(

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:pontuador_robolab/core/atom/shared_atom.dart';
 
 class DropdownReusable extends StatefulWidget {
-  const DropdownReusable({Key? key}) : super(key: key);
+  final int tentativa; // Adiciona o parâmetro da tentativa
+
+  const DropdownReusable({Key? key, required this.tentativa}) : super(key: key);
 
   @override
   State<DropdownReusable> createState() => _DropdownReusableState();
@@ -56,6 +58,18 @@ class _DropdownReusableState extends State<DropdownReusable> {
     }
   }
 
+  int calcularMultiplicador() {
+    if (widget.tentativa == 1) {
+      return 5;
+    } else if (widget.tentativa == 2) {
+      return 3;
+    } else if (widget.tentativa == 3) {
+      return 1;
+    } else {
+      return 1; // Valor padrão se a tentativa não for 1, 2 ou 3
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -66,7 +80,7 @@ class _DropdownReusableState extends State<DropdownReusable> {
             setState(() {
               pontuacaoAnterior = mapearValorParaPontuacao(dropdownValue);
               dropdownValue = value!;
-              pontuacaoSelecionada = mapearValorParaPontuacao(value);
+              pontuacaoSelecionada = mapearValorParaPontuacao(value) * calcularMultiplicador();
               SharedAtom.pontos1 = SharedAtom.pontos1 - pontuacaoAnterior + pontuacaoSelecionada;
               if (pontuacaoSelecionada == 0) {
                 SharedAtom.pontos1 = 0;

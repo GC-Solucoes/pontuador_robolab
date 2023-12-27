@@ -52,20 +52,6 @@ class _VitimasInvertidaWidgetState extends State<VitimasInvertidaWidget> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               InkWell(
-                onTap: acrescentarQuantidade,
-                child: const Icon(
-                  Icons.add,
-                  color: Colors.green,
-                  size: 40,
-                ),
-              ),
-              const SizedBox(width: 8),
-              Text(
-                '$quantidadeVitimas',
-                style: const TextStyle(fontSize: 24, color: Colors.white),
-              ),
-              const SizedBox(width: 8),
-              InkWell(
                 onTap: diminuirQuantidade,
                 child: const Icon(
                   Icons.remove,
@@ -73,6 +59,20 @@ class _VitimasInvertidaWidgetState extends State<VitimasInvertidaWidget> {
                   size: 40,
                 ),
               ),
+              const SizedBox(width: 20),
+              Text(
+                '$quantidadeVitimas',
+                style: const TextStyle(fontSize: 24, color: Colors.white),
+              ),
+              const SizedBox(width: 20),
+              InkWell(
+                onTap: acrescentarQuantidade,
+                child: const Icon(
+                  Icons.add,
+                  color: Colors.green,
+                  size: 40,
+                ),
+              ), 
             ],
           ),
           const SizedBox(height: 10),

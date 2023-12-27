@@ -1,11 +1,108 @@
 // ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
-import 'package:pontuador_robolab/features/inicio_pontuador/presentation/pages/home_page.dart';
 import 'package:pontuador_robolab/core/atom/shared_atom.dart';
-import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/timer_display_widget.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+
+class VisualizarPontuacoesScreen extends StatefulWidget {
+  const VisualizarPontuacoesScreen({Key? key}) : super(key: key);
+
+  @override
+  _VisualizarPontuacoesScreenState createState() =>
+      _VisualizarPontuacoesScreenState();
+}
+
+class _VisualizarPontuacoesScreenState
+    extends State<VisualizarPontuacoesScreen> {
+  List<PontuacaoModel> _pontuacoes = [];
+  List<bool> _selecionado = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _carregarPontuacoes();
+  }
+
+  Future<void> _carregarPontuacoes() async {
+    final List<PontuacaoModel> pontuacoes =
+        await PontuacaoDatabase().getPontuacoes();
+
+    setState(() {
+      _pontuacoes = pontuacoes;
+      _selecionado = List.generate(_pontuacoes.length, (index) => false);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Pontuações Salvas'),
+        backgroundColor: Colors.green,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.delete),
+            onPressed: () {
+              _excluirPontuacoesSelecionadas();
+            },
+          ),
+        ],
+      ),
+      body: ListView.builder(
+        itemCount: _pontuacoes.length,
+        itemBuilder: (context, index) {
+          final pontuacao = _pontuacoes[index];
+          final posicao = index + 1;
+          return CheckboxListTile(
+            title: Text(
+                '$posicao° - ${pontuacao.nome} - ${pontuacao.pontuacao} - ${pontuacao.tempo}'),
+            subtitle: Text('Data: ${pontuacao.data}'),
+            value: _selecionado[index],
+            onChanged: (value) {
+              setState(() {
+                _selecionado[index] = value!;
+              });
+            },
+          );
+        },
+      ),
+    );
+  }
+
+  void _excluirPontuacoesSelecionadas() async {
+    final List<int> indicesSelecionados = _selecionado
+        .asMap()
+        .entries
+        .where((entry) => entry.value)
+        .map((entry) => entry.key)
+        .toList();
+
+    if (indicesSelecionados.isNotEmpty) {
+      final Database db = await PontuacaoDatabase().database;
+      for (final index in indicesSelecionados) {
+        await db.delete(
+          'pontuacoes',
+          where: 'id = ?',
+          whereArgs: [_pontuacoes[index].id],
+        );
+      }
+      await _carregarPontuacoes(); // Recarrega a lista após a exclusão
+
+      ScaffoldMessenger.of(context as BuildContext).showSnackBar(
+        const SnackBar(
+          content: Text('Pontuações excluídas com sucesso!'),
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context as BuildContext).showSnackBar(
+        const SnackBar(
+          content: Text('Nenhuma pontuação selecionada para exclusão.'),
+        ),
+      );
+    }
+  }
+}
 
 class PontuacaoModel {
   int? id;
@@ -84,7 +181,7 @@ class PontuacaoDatabase {
 class RankingScreen extends StatefulWidget {
   final List<PontuacaoModel> pontuacoes;
 
-  const RankingScreen({Key? key, required this.pontuacoes}) : super(key: key);
+  const RankingScreen({Key? key, this.pontuacoes = const []}) : super(key: key);
 
   @override
   _RankingScreenState createState() => _RankingScreenState();
@@ -114,8 +211,8 @@ class _RankingScreenState extends State<RankingScreen> {
           final pontuacao = widget.pontuacoes[index];
           final posicao = index + 1;
           return ListTile(
-            title:
-                Text('$posicao° - ${pontuacao.nome} - ${pontuacao.pontuacao} - ${pontuacao.tempo}'),
+            title: Text(
+                '$posicao° - ${pontuacao.nome} - ${pontuacao.pontuacao} - ${pontuacao.tempo}'),
             subtitle: Text('Data: ${pontuacao.data}'),
           );
         },
@@ -153,7 +250,7 @@ class _RankingScreenState extends State<RankingScreen> {
 
     ScaffoldMessenger.of(context as BuildContext).showSnackBar(
       const SnackBar(
-        content: Text('Pontuações excluídas com sucesso! '),
+        content: Text('Pontuações excluídas com sucesso!'),
       ),
     );
   }
@@ -224,12 +321,9 @@ class PontuacaoFinal extends StatelessWidget with RouteAware {
                 );
                 await PontuacaoDatabase().salvarPontuacao(pontuacaoModel);
 
-                final List<PontuacaoModel> pontuacoes =
-                    await PontuacaoDatabase().getPontuacoes();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => RankingScreen(pontuacoes: pontuacoes),
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Pontuação salva com sucesso!'),
                   ),
                 );
               },
