@@ -30,7 +30,7 @@ class _TelaLoginState extends State<TelaLogin> {
 
     setState(() {
       _rememberLogin = rememberLogin;
-      if(_rememberLogin) {
+      if (_rememberLogin) {
         String savedUsername = prefs.getString('saved_username') ?? '';
         String savedPassword = prefs.getString('saved_password') ?? '';
 
@@ -44,7 +44,7 @@ class _TelaLoginState extends State<TelaLogin> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool(_rememberLoginKey, _rememberLogin);
 
-    if(_rememberLogin) {
+    if (_rememberLogin) {
       prefs.setString('saved_username', _usuarioController.text);
       prefs.setString('saved_password', _senhaController.text);
     }
@@ -63,8 +63,8 @@ class _TelaLoginState extends State<TelaLogin> {
           children: [
             Image.network(
               'https://github.com/coimbrox/pontuador_robolab/raw/0e074b208af47e2f635028f09c15b9692855d5db/lib/assets/image/icon-android.png',
-              height: 100.0, // Ajuste conforme necessário
-              width: 100.0, // Ajuste conforme necessário
+              height: 200.0, // Ajuste conforme necessário
+              width: 200.0, // Ajuste conforme necessário
             ),
             SizedBox(height: 16.0),
             Flexible(
@@ -167,6 +167,18 @@ class _TelaLoginState extends State<TelaLogin> {
                   fontSize: 16.0,
                   color: Colors.red,
                   decoration: TextDecoration.underline,
+                ),
+              ),
+            ),
+            SizedBox(height: 70),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                margin: EdgeInsets.only(bottom: 16.0),
+                child: Text(
+                  'Pontuador RoboLab Caxias - Versão 1.2\nDezembro de 2023\nDesenvolvido por Gabriel Coimbra de Oliveira da Silva e Leonardo Franco Lima sob orientação dos professores Greice da Silva Lorenzzetti Andreis e André Augusto Andreis\nIFRS - Campus Caxias do Sul',
+                  style: TextStyle(fontSize: 13, color: Colors.white),
+                  textAlign: TextAlign.center,
                 ),
               ),
             ),

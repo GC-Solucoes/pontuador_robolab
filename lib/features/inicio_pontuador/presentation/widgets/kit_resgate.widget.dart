@@ -1,7 +1,6 @@
-// ignore_for_file: library_private_types_in_public_api
-
 import 'package:flutter/material.dart';
 import 'package:pontuador_robolab/core/atom/shared_atom.dart';
+import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/vitimas_verde.widget.dart';
 
 class KitResgateWidget extends StatefulWidget {
   const KitResgateWidget({Key? key}) : super(key: key);
@@ -12,7 +11,7 @@ class KitResgateWidget extends StatefulWidget {
 
 class _KitResgateWidgetState extends State<KitResgateWidget> {
   String status = "Não Entregue";
-  double multiplicador = 1.0; // Inicializado como 1.0 (sem multiplicação)
+  int quantidadeVitimas = 0; // Nova variável para armazenar a quantidade de vítimas
   int selectedButtonIndex = -1; // Índice do botão selecionado
 
   @override
@@ -31,22 +30,26 @@ class _KitResgateWidgetState extends State<KitResgateWidget> {
                   onTap: () {
                     setState(() {
                       status = [
-                        "Não entregue",
-                        "Entregue na área vermelha (Robô)",
-                        "Entregue na área vermelha (Trajeto)",
-                        "Entregue na área verde (Robô)",
-                        "Entregue na área verde (Trajeto)",
+                        "Entregue na área verde (robô)",
+                        "Entregue na área verde (trajeto)",
+                        "Entregue na área vermelha (robô)",
+                        "Entregue na área vermelha (trajeto)",
+                        "Não Entregue",
                       ][index];
                       selectedButtonIndex =
                           index; // Define o índice do botão selecionado
 
                       // Defina o multiplicador com base na seleção da área
-                      if (index == 3 || index == 4) {
-                        multiplicador = 1.3;
-                        SharedAtom.pontos13 = multiplicador; // Na área dos vivos
+                      if (index == 0) {
+                        SharedAtom.pontos13 = 1.3;
+                      } else if (index == 1) {
+                        SharedAtom.pontos13 = 1.6;
+                      } else if (index == 2) {
+                        SharedAtom.pontos13 = 1.1;
+                      } else if (index == 3) {
+                        SharedAtom.pontos13 = 1.2;
                       } else {
-                        multiplicador = 1.1;
-                        SharedAtom.pontos13 = multiplicador;// Na área dos mortos
+                        SharedAtom.pontos13 = 1.0;
                       }
                     });
                   },
@@ -62,11 +65,11 @@ class _KitResgateWidgetState extends State<KitResgateWidget> {
                       child: Center(
                         child: Text(
                           [
-                            "Não Entregue",
-                            "Entregue na área vermelha (robô)",
-                            "Entregue na área vermelha (trajeto)",
                             "Entregue na área verde (robô)",
                             "Entregue na área verde (trajeto)",
+                            "Entregue na área vermelha (robô)",
+                            "Entregue na área vermelha (trajeto)",
+                            "Não Entregue",
                           ][index],
                           style: TextStyle(
                             color: selectedButtonIndex == index
@@ -82,23 +85,24 @@ class _KitResgateWidgetState extends State<KitResgateWidget> {
                 ),
             ],
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 40),
           Text(
-            'Status selecionado: $status',
-            style: const TextStyle(fontSize: 18, color: Colors.white),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Text(
-            'Multiplicador: $multiplicador',
+            'Multiplicador Final: ${formatarPontos(SharedAtom.pontos13 * (SharedAtom.pontos10 * SharedAtom.pontos11 * SharedAtom.pontos12))}',
             style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 20),
+                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 25),
           ),
+          const SizedBox(height: 20),
         ],
       ),
     );
+  }
+
+  String formatarPontos(num pontos) {
+    return pontos.toStringAsFixed(2);
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 }

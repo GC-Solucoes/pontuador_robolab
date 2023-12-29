@@ -40,25 +40,6 @@ class _MyHomePageState extends State<MyHomePage> {
   final Stopwatch _stopwatch = Stopwatch();
   Timer? _timer;
 
-  void _mostrarMensagemDeConfirmacao(String nome) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('Mensagem de Confirmação'),
-            content: Text('Nome enviado com sucesso: $nome'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text('OK'),
-              ),
-            ],
-          );
-        });
-  }
-
   void _toggleLadrilhoInicial(bool value) {
     setState(() {
       _ladrilhoInicialSelected = value;
@@ -93,8 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     String formattedMinutes = minutos.toString().padLeft(2, '0');
     String formattedSeconds = segundos.toString().padLeft(2, '0');
-    String formattedMilliseconds =
-        (milissegundos ~/ 10).toString().padLeft(2, '0'); // Ajuste aqui
+    String formattedMilliseconds = (milissegundos ~/ 10).toString().padLeft(2, '0');
 
     return '$formattedMinutes:$formattedSeconds:$formattedMilliseconds';
   }
@@ -134,21 +114,23 @@ class _MyHomePageState extends State<MyHomePage> {
                   margin: const EdgeInsets.symmetric(horizontal: 20),
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0),
-                      borderRadius: BorderRadius.circular(15),
-                      border: Border.all(
-                        color: Colors.black,
-                        width: 2,
-                      )),
+                    color: Colors.white.withOpacity(0),
+                    borderRadius: BorderRadius.circular(15),
+                    border: Border.all(
+                      color: Colors.black,
+                      width: 2,
+                    ),
+                  ),
                   child: TextField(
-                      controller: _nomeController,
-                      decoration: const InputDecoration(
-                        hintText: 'Nome da equipe',
-                        border: InputBorder.none,
-                      ),
-                      onChanged: (value) {
-                        SharedAtom.nome = value;
-                      }),
+                    controller: _nomeController,
+                    decoration: const InputDecoration(
+                      hintText: 'Nome da equipe',
+                      border: InputBorder.none,
+                    ),
+                    onChanged: (value) {
+                      SharedAtom.nome = value;
+                    },
+                  ),
                 ),
                 const SizedBox(height: 60),
                 LadrilhoInicialOption(
@@ -156,27 +138,36 @@ class _MyHomePageState extends State<MyHomePage> {
                   toggleSelection: _toggleLadrilhoInicial,
                 ),
                 const SizedBox(height: 40),
-                const Text('1° Marcador',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25)),
+                const Text(
+                  '1° Marcador',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
+                  ),
+                ),
                 const SizedBox(height: 20),
                 const PrimeiroMarcadorWidget(),
                 const SizedBox(height: 20),
-                const Text('2° Marcador',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25)),
+                const Text(
+                  '2° Marcador',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
+                  ),
+                ),
                 const SizedBox(height: 20),
                 const SegundoMarcadorWidget(),
                 const SizedBox(height: 20),
-                const Text('3° Marcador',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25)),
+                const Text(
+                  '3° Marcador',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
+                  ),
+                ),
                 const SizedBox(height: 20),
                 const TerceiroMarcadorWidget(),
                 const SizedBox(height: 70),
@@ -185,35 +176,47 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     Column(
                       children: [
-                        Text('Obstáculos',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 25)),
+                        Text(
+                          'Obstáculos',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25,
+                          ),
+                        ),
                         SizedBox(height: 20),
                         ObstaculosWidget(),
                         SizedBox(height: 40),
-                        Text('Gangorras',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 25)),
+                        Text(
+                          'Gangorras',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25,
+                          ),
+                        ),
                         SizedBox(height: 20),
                         GangorrasWidget(),
                         SizedBox(height: 40),
-                        Text('Redutores',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 25)),
+                        Text(
+                          'Redutores',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25,
+                          ),
+                        ),
                         SizedBox(height: 20),
                         RedutoresWidget(),
                         SizedBox(height: 40),
-                        Text('Intersecções',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 25)),
+                        Text(
+                          'Intersecções',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25,
+                          ),
+                        ),
                         SizedBox(height: 20),
                         IntersecoesWidget(),
                       ],
@@ -221,35 +224,47 @@ class _MyHomePageState extends State<MyHomePage> {
                     SizedBox(width: 10),
                     Column(
                       children: [
-                        Text('Gaps',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 25)),
+                        Text(
+                          'Gaps',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25,
+                          ),
+                        ),
                         SizedBox(height: 20),
                         GapWidget(),
                         SizedBox(height: 40),
-                        Text('Passagens',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 25)),
+                        Text(
+                          'Passagens',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25,
+                          ),
+                        ),
                         SizedBox(height: 20),
                         PassagemWidget(),
                         SizedBox(height: 40),
-                        Text('Becos',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 25)),
+                        Text(
+                          'Becos',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25,
+                          ),
+                        ),
                         SizedBox(height: 20),
                         BecosWidget(),
                         SizedBox(height: 40),
-                        Text('Rampas',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 25)),
+                        Text(
+                          'Rampas',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25,
+                          ),
+                        ),
                         SizedBox(height: 20),
                         RampasWidget(),
                       ],
@@ -257,42 +272,56 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
                 const SizedBox(height: 100),
-                const Text('Vítimas Resgatadas',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25)),
+                const Text(
+                  'Vítimas Resgatadas',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
+                  ),
+                ),
                 const SizedBox(height: 30),
-                const Text('Vítimas Vivas Entregues na Área Verde',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20)),
+                const Text(
+                  'Vivas na Área Verde',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
                 const SizedBox(height: 20),
-                const VitimasVerdeWidget(),
-                const SizedBox(height: 40),
-                const Text('Vítimas Mortas Entregues na Área Vermelha',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20)),
-                const SizedBox(height: 20),
-                const VitimasVermelhoWidget(),
+                VitimasVerdeWidget(onQuantidadeVitimasChanged: _handleQuantidadeVitimasChanged),
                 const SizedBox(height: 40),
                 const Text(
-                    'Vítimas Vivas ou Mortas Entregues na Área Invertida',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20)),
+                  'Mortas na Área Vermelha',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
                 const SizedBox(height: 20),
-                const VitimasInvertidaWidget(),
+                VitimasVermelhoWidget(onQuantidadeVitimasChanged: _handleQuantidadeVitimasChanged),
+                const SizedBox(height: 40),
+                const Text(
+                  'Vivas ou Mortas na Área Invertida',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                VitimasInvertidaWidget(onQuantidadeVitimasChanged: _handleQuantidadeVitimasChanged),
                 const SizedBox(height: 60),
-                const Text('Kit Resgate Entregue',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25)),
+                const Text(
+                  'Kit de Resgate',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
+                  ),
+                ),
                 const SizedBox(height: 20),
                 const KitResgateWidget(),
                 const SizedBox(height: 40),
@@ -301,7 +330,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const PontuacaoFinal()),
+                        builder: (context) => const PontuacaoFinal(),
+                      ),
                     );
                   },
                   style: ElevatedButton.styleFrom(
@@ -322,7 +352,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const VisualizarPontuacoesScreen()
+                        builder: (context) => const VisualizarPontuacoesScreen(),
                       ),
                     );
                   },
@@ -346,7 +376,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60.0),
         child: AppBar(
-          backgroundColor: Color.fromARGB(255, 39, 199, 60),
+          backgroundColor: const Color.fromARGB(255, 39, 199, 60),
           elevation: 0,
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios_new),
@@ -370,5 +400,9 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
+  }
+
+  void _handleQuantidadeVitimasChanged(int quantidadeVitimas) {
+    setState(() {});
   }
 }

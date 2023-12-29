@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
 import 'package:pontuador_robolab/core/atom/shared_atom.dart';
 
 class VitimasVerdeWidget extends StatefulWidget {
-  const VitimasVerdeWidget({Key? key}) : super(key: key);
+  final VoidCallback? onPontos10Changed;
+  final Function(int) onQuantidadeVitimasChanged; // Callback para atualizar a quantidade de vítimas
+
+  const VitimasVerdeWidget({
+    Key? key,
+    this.onPontos10Changed,
+    required this.onQuantidadeVitimasChanged,
+  }) : super(key: key);
 
   @override
   _VitimasVerdeWidgetState createState() => _VitimasVerdeWidgetState();
@@ -11,32 +17,32 @@ class VitimasVerdeWidget extends StatefulWidget {
 
 class _VitimasVerdeWidgetState extends State<VitimasVerdeWidget> {
   int quantidadeVitimas = 0; // Inicializado com 0
-  num point = 0.0;
 
   void acrescentarQuantidade() {
     setState(() {
       quantidadeVitimas++;
-      point = calcularPontos();
-      atualizarPontos();
     });
+    atualizarPontos();
   }
 
   void diminuirQuantidade() {
     if (quantidadeVitimas > 0) {
       setState(() {
         quantidadeVitimas--;
-        point = calcularPontos();
-        atualizarPontos();
       });
+      atualizarPontos();
     }
   }
 
   void atualizarPontos() {
-    if (point == 0) {
+    if (quantidadeVitimas == 0) {
       SharedAtom.pontos10 = 1.0;
-    } else {
+    }
+    else {
       SharedAtom.pontos10 = calcularPontos();
     }
+    widget.onPontos10Changed?.call();
+    widget.onQuantidadeVitimasChanged(quantidadeVitimas); // Chama o callback para atualizar o KitResgateWidget
   }
 
   @override
@@ -70,22 +76,15 @@ class _VitimasVerdeWidgetState extends State<VitimasVerdeWidget> {
                   color: Colors.green,
                   size: 40,
                 ),
-              ), 
+              ),
             ],
-          ),
-          const SizedBox(height: 10),
-          Text(
-            'Quantidade de Vítimas: $quantidadeVitimas',
-            style: const TextStyle(fontSize: 18, color: Colors.white),
           ),
         ],
       ),
     );
   }
 
-  num calcularPontos() {
-    num z = pow(1.3, quantidadeVitimas);
-    // Multiplica a quantidade de vítimas por 1.3 e retorna um double
-    return z;
+  double calcularPontos() {
+    return quantidadeVitimas * 1.3;
   }
 }

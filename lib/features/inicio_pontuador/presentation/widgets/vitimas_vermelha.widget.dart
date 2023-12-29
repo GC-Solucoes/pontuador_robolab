@@ -5,7 +5,14 @@ import 'dart:math';
 import 'package:pontuador_robolab/core/atom/shared_atom.dart';
 
 class VitimasVermelhoWidget extends StatefulWidget {
-  const VitimasVermelhoWidget({Key? key}) : super(key: key);
+  final VoidCallback? onPontos11Changed;
+  final Function(int) onQuantidadeVitimasChanged; // Callback para atualizar a quantidade de vítimas
+
+  const VitimasVermelhoWidget({
+    Key? key,
+    this.onPontos11Changed,
+    required this.onQuantidadeVitimasChanged,
+  }) : super(key: key);
 
   @override
   _VitimasVermelhoWidgetState createState() => _VitimasVermelhoWidgetState();
@@ -18,27 +25,28 @@ class _VitimasVermelhoWidgetState extends State<VitimasVermelhoWidget> {
   void acrescentarQuantidade() {
     setState(() {
       quantidadeVitimas++;
-      point = calcularPontos();
-      atualizarPontos();
     });
+    atualizarPontos();
   }
 
   void diminuirQuantidade() {
     if (quantidadeVitimas > 0) {
       setState(() {
         quantidadeVitimas--;
-        point = calcularPontos();
-        atualizarPontos();
       });
+      atualizarPontos();
     }
   }
 
   void atualizarPontos() {
-    if (point == 0) {
+    if (quantidadeVitimas == 0) {
       SharedAtom.pontos11 = 1.0;
-    } else {
+    }
+    else {
       SharedAtom.pontos11 = calcularPontos();
     }
+    widget.onPontos11Changed?.call();
+    widget.onQuantidadeVitimasChanged(quantidadeVitimas);
   }
 
   @override
@@ -72,22 +80,15 @@ class _VitimasVermelhoWidgetState extends State<VitimasVermelhoWidget> {
                   color: Colors.green,
                   size: 40,
                 ),
-              ), 
+              ),
             ],
-          ),
-          const SizedBox(height: 10),
-          Text(
-            'Quantidade de Vítimas: $quantidadeVitimas',
-            style: const TextStyle(fontSize: 18, color: Colors.white),
           ),
         ],
       ),
     );
   }
 
-  num calcularPontos() {
-    num z = pow(1.3, quantidadeVitimas);
-    // Multiplica a quantidade de vítimas por 1.3 e retorna um double
-    return z;
+  double calcularPontos() {
+    return quantidadeVitimas * 1.3;
   }
 }

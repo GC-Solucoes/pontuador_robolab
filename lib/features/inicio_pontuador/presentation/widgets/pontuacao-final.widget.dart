@@ -28,6 +28,15 @@ class _VisualizarPontuacoesScreenState
     final List<PontuacaoModel> pontuacoes =
         await PontuacaoDatabase().getPontuacoes();
 
+    // Ordenar a lista primeiro pela pontuação (decrescente) e depois pelo tempo (decrescente)
+    pontuacoes.sort((a, b) {
+      if (a.pontuacao != b.pontuacao) {
+        return b.pontuacao.compareTo(a.pontuacao);
+      } else {
+        return a.tempo.compareTo(b.tempo);
+      }
+    });
+
     setState(() {
       _pontuacoes = pontuacoes;
       _selecionado = List.generate(_pontuacoes.length, (index) => false);
@@ -276,6 +285,7 @@ class PontuacaoFinal extends StatelessWidget with RouteAware {
         ((((pontosSoma * SharedAtom.pontos13) * SharedAtom.pontos10) *
                 SharedAtom.pontos11) *
             SharedAtom.pontos12);
+
     String result = resultado.toStringAsFixed(2);
     double result2 = double.parse(result);
 
