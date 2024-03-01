@@ -1,4 +1,5 @@
 {
+    // Diz quais palavras o corretor ortográfico deve considerar como certas mesmo que não estejam no dicionário
     "cSpell.words": [
         "avaliador",
         "Avaliador",
