@@ -295,12 +295,6 @@ class PontuacaoFinal extends StatelessWidget with RouteAware {
         child: AppBar(
           backgroundColor: Colors.green,
           elevation: 0,
-          leading: IconButton(
-            icon: const Icon(Icons.home_filled),
-            onPressed: () {
-              Navigator.pushReplacementNamed(context, '/home');
-            },
-          ),
         ),
       ),
       body: Center(
@@ -348,22 +342,7 @@ class PontuacaoFinal extends StatelessWidget with RouteAware {
                 'Salvar Pontuação',
                 style: TextStyle(fontSize: 18),
               ),
-            ),
-            const SizedBox(height: 20), // Adicionei um espaço entre os botões
-            FloatingActionButton(
-              onPressed: () {
-                SharedAtom.resetPontuacao();
-                Navigator.pushReplacementNamed(context, '/home');
-              },
-              backgroundColor: Colors.red,
-              child: const Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons
-                      .delete), // Adicionei um espaço entre o ícone e o texto
-                ],
-              ),
-            ),
+            ), // Adicionei um espaço entre os botões
             // Adicionei um espaço entre os botões
           ],
         ),
@@ -372,7 +351,8 @@ class PontuacaoFinal extends StatelessWidget with RouteAware {
         padding: const EdgeInsets.only(bottom: 16.0),
         child: FloatingActionButton(
           onPressed: () {
-            Navigator.pop(context);
+            SharedAtom.resetPontuacao();
+            Navigator.pushReplacementNamed(context, '/home');
           },
           backgroundColor: Colors.green,
           child: const Icon(Icons.arrow_back),

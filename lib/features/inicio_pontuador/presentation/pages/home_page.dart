@@ -342,7 +342,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                   child: const Text(
-                    'Ver Pontuação Final',
+                    'Pontuação final',
                     style: TextStyle(fontSize: 18),
                   ),
                 ),
@@ -364,7 +364,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                   child: const Text(
-                    'Ver Pontuações Cadastradas',
+                    'Pontuações salvas',
                     style: TextStyle(fontSize: 18),
                   ),
                 ),

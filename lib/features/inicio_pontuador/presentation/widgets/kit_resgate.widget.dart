@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pontuador_robolab/core/atom/shared_atom.dart';
-import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/vitimas_verde.widget.dart';
+
 
 class KitResgateWidget extends StatefulWidget {
   const KitResgateWidget({Key? key}) : super(key: key);
@@ -34,7 +34,7 @@ class _KitResgateWidgetState extends State<KitResgateWidget> {
                         "Entregue na área verde (trajeto)",
                         "Entregue na área vermelha (robô)",
                         "Entregue na área vermelha (trajeto)",
-                        "Não Entregue",
+                        "Não entregue",
                       ][index];
                       selectedButtonIndex =
                           index; // Define o índice do botão selecionado
@@ -69,7 +69,7 @@ class _KitResgateWidgetState extends State<KitResgateWidget> {
                             "Entregue na área verde (trajeto)",
                             "Entregue na área vermelha (robô)",
                             "Entregue na área vermelha (trajeto)",
-                            "Não Entregue",
+                            "Não entregue",
                           ][index],
                           style: TextStyle(
                             color: selectedButtonIndex == index
