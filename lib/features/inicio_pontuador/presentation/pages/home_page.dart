@@ -1,5 +1,3 @@
-// ignore_for_file: library_private_types_in_public_api, unused_element
-
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:pontuador_robolab/features/inicio_pontuador/presentation/widgets/becos.widget.dart';
@@ -74,7 +72,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
     String formattedMinutes = minutos.toString().padLeft(2, '0');
     String formattedSeconds = segundos.toString().padLeft(2, '0');
-    String formattedMilliseconds = (milissegundos ~/ 10).toString().padLeft(2, '0');
+    String formattedMilliseconds =
+        (milissegundos ~/ 10).toString().padLeft(2, '0');
 
     return '$formattedMinutes:$formattedSeconds:$formattedMilliseconds';
   }
@@ -88,7 +87,25 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {});
   }
 
+  num calcMulti() {
+    return SharedAtom.pontos14 = SharedAtom.pontos13 *
+        (SharedAtom.pontos10 * SharedAtom.pontos11 * SharedAtom.pontos12);
+  }
+
+  String formatarPontos(num pontos) {
+    return pontos.toStringAsFixed(2);
+  }
+
   List<int> listaPontos = [];
+
+  int _selectedKitIndex = -1; // Índice do kit de resgate selecionado
+
+  // Função para lidar com a mudança do kit de resgate
+  void _handleKitChanged(int index) {
+    setState(() {
+      _selectedKitIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -290,7 +307,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                VitimasVerdeWidget(onQuantidadeVitimasChanged: _handleQuantidadeVitimasChanged),
+                VitimasVerdeWidget(
+                  onQuantidadeVitimasChanged: _handleQuantidadeVitimasChanged,
+                ),
                 const SizedBox(height: 40),
                 const Text(
                   'Mortas na Área Vermelha',
@@ -301,7 +320,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                VitimasVermelhoWidget(onQuantidadeVitimasChanged: _handleQuantidadeVitimasChanged),
+                VitimasVermelhoWidget(
+                  onQuantidadeVitimasChanged: _handleQuantidadeVitimasChanged,
+                ),
                 const SizedBox(height: 40),
                 const Text(
                   'Vivas ou Mortas na Área Invertida',
@@ -312,7 +333,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                VitimasInvertidaWidget(onQuantidadeVitimasChanged: _handleQuantidadeVitimasChanged),
+                VitimasInvertidaWidget(
+                  onQuantidadeVitimasChanged: _handleQuantidadeVitimasChanged,
+                ),
                 const SizedBox(height: 60),
                 const Text(
                   'Kit de Resgate',
@@ -323,7 +346,17 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                const KitResgateWidget(),
+                KitResgateWidget(
+                  onKitChanged: _handleKitChanged,
+                ),
+                const SizedBox(height: 20),
+                Text(
+                  'Multiplicador Final: ${formatarPontos(calcMulti())}',
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25),
+                ),
                 const SizedBox(height: 40),
                 ElevatedButton(
                   onPressed: () {

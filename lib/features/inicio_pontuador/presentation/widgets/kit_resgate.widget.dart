@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:pontuador_robolab/core/atom/shared_atom.dart';
 
-
 class KitResgateWidget extends StatefulWidget {
-  const KitResgateWidget({Key? key}) : super(key: key);
+  final VoidCallback? onPontos13Changed;
+  final Function(int) onKitChanged;
+
+  const KitResgateWidget({
+    Key? key,
+    this.onPontos13Changed,
+    required this.onKitChanged,
+  }) : super(key: key);
 
   @override
   _KitResgateWidgetState createState() => _KitResgateWidgetState();
@@ -51,6 +57,7 @@ class _KitResgateWidgetState extends State<KitResgateWidget> {
                       } else {
                         SharedAtom.pontos13 = 1.0;
                       }
+                      widget.onKitChanged(index); // Chame o callback com o índice selecionado
                     });
                   },
                   child: Container(
@@ -86,23 +93,8 @@ class _KitResgateWidgetState extends State<KitResgateWidget> {
             ],
           ),
           const SizedBox(height: 40),
-          Text(
-            'Multiplicador Final: ${formatarPontos(SharedAtom.pontos13 * (SharedAtom.pontos10 * SharedAtom.pontos11 * SharedAtom.pontos12))}',
-            style: const TextStyle(
-                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 25),
-          ),
-          const SizedBox(height: 20),
         ],
       ),
     );
-  }
-
-  String formatarPontos(num pontos) {
-    return pontos.toStringAsFixed(2);
-  }
-
-  @override
-  void initState() {
-    super.initState();
   }
 }

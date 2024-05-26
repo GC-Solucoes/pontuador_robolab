@@ -24,7 +24,7 @@ class _TelaLoginState extends State<TelaLogin> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.network(
-                  'https://raw.githubusercontent.com/GC-Solucoes/pontuador_robolab/main/lib/assets/image/WhatsApp%20Image%202024-03-26%20at%2011.36.06.jpeg',
+                  'https://raw.githubusercontent.com/GC-Solucoes/pontuador_robolab/main/lib/assets/image/logo-home.png',
                   height: 350.0,
                   width: 350.0,
                 ),
